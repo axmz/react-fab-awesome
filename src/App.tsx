@@ -1,14 +1,14 @@
 import React from "react";
 import "./App.scss";
-import Container from "./components/Container/Container";
-import FAB from "./components/FAB/FAB";
+import Screen from "./components/Screen/Screen";
+import FAB from "./components/FAB/Container";
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Container>
+      <Screen>
         <FAB/>
-      </Container>
+      </Screen>
     </div>
   );
 };

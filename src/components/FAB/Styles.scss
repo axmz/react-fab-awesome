@@ -1,0 +1,29 @@
+@mixin circle($p, $bc) {
+  border-radius: 100%;
+  padding: $p*1.5;
+  background-color: $bc;
+  margin: .5rem;
+}
+
+.fab__container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  right: 0;
+  background-color: yellowgreen;
+
+  .fab__button--large {
+    @include circle(1.2rem, orange);
+  }
+
+  .fab__button--medium {
+    @include circle(0.7rem, grey);
+  }
+
+  .fab__button--small {
+    @include circle(0.4rem, brown);
+  }
+}

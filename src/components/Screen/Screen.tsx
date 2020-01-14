@@ -1,5 +1,5 @@
 import React from "react";
-import "./Container.scss";
+import "./Screen.scss";
 
 interface Props {
   name?: string
