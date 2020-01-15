@@ -1,4 +1,6 @@
 import React, { useRef } from "react";
+import { ReactComponent as Arrow } from "../../assets/arrow.svg";
+import { ReactComponent as Plus } from "../../assets/plus.svg";
 import "./Styles.scss";
 import LargeButton from "./LargeButton";
 import MediumButton from "./MediumButton";
@@ -8,45 +10,49 @@ import {
   animated,
   useTransition,
   useChain,
+  interpolate,
+  ReactSpringHook
 } from "react-spring";
 
 const Container: React.FC = () => {
+
   // Toggle
   const [on, toggle] = React.useState(false);
 
   // Spring
-  const springRef = useRef();
-  const { y } = useSpring({
+  const springRef = useRef<ReactSpringHook>(null);
+  const { y, rot } = useSpring({
     ref: springRef,
-    config: { mass: 1, tension: 320, friction: 19 },
-    from: { y: 0 },
-    y: on ? -140 : 0
+    config: { mass: 1, tension: 320, friction: 23 },
+    from: { y: 0, rot: 0 },
+    y: on ? -170 : 0,
+    rot: on ? 180 : 0
   });
 
   // Transition
   const items = [1, 2, 3];
-  const transitionRef = useRef();
+  const transitionRef = useRef<ReactSpringHook>(null);
   const transitions = useTransition(on ? items : [], item => item, {
     ref: transitionRef,
     trail: 100,
     config: { mass: 1, tension: 320, friction: 19 },
     from: {
-      position: 'absolute',
-      left: '50%',
+      position: "absolute",
+      left: "50%",
       opacity: 0,
       transform: `translateY(-20px)`
     },
-    enter: { 
-      position: 'absolute',
-      left: '50%',
-      opacity: 1, 
-      transform: `translateY(0px)` 
+    enter: {
+      position: "absolute",
+      left: "50%",
+      opacity: 1,
+      transform: `translateY(0px)`
     },
-    leave: { 
-      position: 'absolute',
-      left: '50%',
-      opacity: 0, 
-      transform: `translateY(-20px)` 
+    leave: {
+      position: "absolute",
+      left: "50%",
+      opacity: 0,
+      transform: `translateY(-20px)`
     }
   });
 
@@ -70,29 +76,33 @@ const Container: React.FC = () => {
     <div className={"fab__container"}>
       <animated.div
         style={{
-          transform: y.interpolate(
-            y => `translateX(${0}px) translateY(${y}px)`
-          ),
-          top: 0,
-          right: 0
+          transform: interpolate([y, rot], (y, rot) => `translateX(${0}px) translateY(${y}px) rotateX(${rot}deg)`),
         }}
         onClick={handleClick}
       >
-        <SmallButton />
+        <SmallButton>
+            <Arrow className={"button__icon--small"} />
+        </SmallButton>
       </animated.div>
+
+
       {transitions.map(({ item, key, props }) => (
         <animated.div
           key={key}
           style={{
             ...props,
-            top: `${40*(-1+item)}px`
+            top: `${40 * (-1 + item)}px`
             // transform: `translateY(${10 * item}px)`
           }}
         >
           <MediumButton />
         </animated.div>
       ))}
-      <LargeButton />
+      
+
+      <LargeButton>
+        <Plus className={'button__icon--large'}/>
+      </LargeButton>
     </div>
   );
 };

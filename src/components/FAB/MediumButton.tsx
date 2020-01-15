@@ -1,5 +1,5 @@
 import React from 'react';
-import './FAB'
+import './Styles.scss'
 
 const MediumButton: React.FC = () => {
 

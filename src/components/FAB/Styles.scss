@@ -1,14 +1,21 @@
 @mixin circle($p, $bc) {
   border-radius: 100%;
-  padding: $p*1.5;
+  padding: $p * 1.5;
   background-color: $bc;
 }
 
-@mixin centered {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%)
+@mixin centered-circle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin centered-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
 }
 
 .fab__container {
@@ -18,17 +25,33 @@
 
   .fab__button--large {
     @include circle(1.2rem, orange);
+    margin: 0.8rem;
+    // margin: 0rem 0.8rem 0.8rem 0.8rem;
+
+    .button__icon--large {
+      @include centered-icon();
+      width: 25%;
+      height: 25%;
+      fill: white
+    }
   }
 
   .fab__button--medium {
     @include circle(0.7rem, grey);
-    @include centered();
-    top: -8rem
+    @include centered-circle();
+    top: -8rem;
   }
 
   .fab__button--small {
     @include circle(0.4rem, brown);
-    @include centered();
-    top: -2rem
+    @include centered-circle();
+    top: -1rem;
+
+    .button__icon--small {
+      @include centered-icon();
+      height: 10px;
+      width: 10px;
+      fill: white;
+    }
   }
 }

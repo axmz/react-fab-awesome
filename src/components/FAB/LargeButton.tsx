@@ -1,10 +1,10 @@
 import React from 'react';
-import './FAB'
+import './Styles.scss'
 
-const LargeButton: React.FC = () => {
+const LargeButton: React.FC = ({children}) => {
 
   return (
-    <div className={'fab__button--large'}></div>
+  <div className={'fab__button--large'}>{children}</div>
   )
 }
 
