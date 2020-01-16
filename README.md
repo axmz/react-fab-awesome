@@ -6,3 +6,7 @@
 - [ ] swipe to close / open  
 - [ ]   
 - [ ]   
+
+# learned
+
+[collapsing margins](https://www.youtube.com/watch?v=uDK2iLQMZlg)

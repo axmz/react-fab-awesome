@@ -15,7 +15,6 @@ import {
 } from "react-spring";
 
 const Container: React.FC = () => {
-
   // Toggle
   const [on, toggle] = React.useState(false);
 
@@ -76,15 +75,18 @@ const Container: React.FC = () => {
     <div className={"fab__container"}>
       <animated.div
         style={{
-          transform: interpolate([y, rot], (y, rot) => `translateX(${0}px) translateY(${y}px) rotateX(${rot}deg)`),
+          transform: interpolate(
+            [y, rot],
+            (y, rot) =>
+              `translateX(${0}px) translateY(${y}px) rotateX(${rot}deg)`
+          )
         }}
         onClick={handleClick}
       >
         <SmallButton>
-            <Arrow className={"button__icon--small"} />
+          <Arrow className={"button__icon--small"} />
         </SmallButton>
       </animated.div>
-
 
       {transitions.map(({ item, key, props }) => (
         <animated.div
@@ -98,10 +100,9 @@ const Container: React.FC = () => {
           <MediumButton />
         </animated.div>
       ))}
-      
 
       <LargeButton>
-        <Plus className={'button__icon--large'}/>
+        <Plus className={"button__icon--large"} />
       </LargeButton>
     </div>
   );

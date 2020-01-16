@@ -26,7 +26,6 @@
   .fab__button--large {
     @include circle(1.2rem, orange);
     margin: 0.8rem;
-    // margin: 0rem 0.8rem 0.8rem 0.8rem;
 
     .button__icon--large {
       @include centered-icon();
