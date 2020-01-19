@@ -1,78 +1,72 @@
-import React, { useRef } from "react";
-import { ReactComponent as Arrow } from "../../assets/arrow.svg";
-import { ReactComponent as Plus } from "../../assets/plus.svg";
-import "./Styles.scss";
-import LargeButton from "./LargeButton";
-import MediumButton from "./MediumButton";
-import SmallButton from "./SmallButton";
+import React, { ReactNode, useRef, useContext, MutableRefObject, useState } from "react";
 import {
+  interpolate,
   useSpring,
-  animated,
   useTransition,
   useChain,
-  interpolate,
-  ReactSpringHook
+  animated
 } from "react-spring";
+import "./Styles.scss";
+import { ReactComponent as Arrow } from "../../assets/arrow.svg";
+import { ReactComponent as Plus } from "../../assets/plus.svg";
+import { Context, ContextType } from "../../context/Context";
 
-const Container: React.FC = () => {
-  // Toggle
-  const [on, toggle] = React.useState(false);
+interface Props {}
 
-  // Spring
-  const springRef = useRef<ReactSpringHook>(null);
+const Container: React.FC<Props> = () => {
+  const { log, setLog } = useContext(Context);
+  // const { open, toggleOpen, log, setLog } = useContext(Context);
+  const [open, toggleOpen] = useState<boolean>(false);
+
+  //////////////////////////////////////// Refs
+  const springRef = useRef(null);
+  const transitionRef = useRef(null);
+
+  //////////////////////////////////////// Spring
   const { y, rot } = useSpring({
     ref: springRef,
     config: { mass: 1, tension: 320, friction: 23 },
     from: { y: 0, rot: 0 },
-    y: on ? -170 : 0,
-    rot: on ? 180 : 0
+    y: open ? -170 : 0,
+    rot: open ? 180 : 0
   });
 
-  // Transition
+  // handleClick
+  const handleClick = () => {
+      toggleOpen(!open);
+  };
+
+  //////////////////////////////////////// Transition
+  const delay = 200;
   const items = [1, 2, 3];
-  const transitionRef = useRef<ReactSpringHook>(null);
-  const transitions = useTransition(on ? items : [], item => item, {
+  const transitions = useTransition(open ? items : [], (item: any) => item, {
     ref: transitionRef,
     trail: 100,
     config: { mass: 1, tension: 320, friction: 19 },
     from: {
-      position: "absolute",
       left: "50%",
       opacity: 0,
       transform: `translateY(-20px)`
     },
     enter: {
-      position: "absolute",
+      // delay,
       left: "50%",
       opacity: 1,
       transform: `translateY(0px)`
     },
     leave: {
-      position: "absolute",
       left: "50%",
-      opacity: 0,
-      transform: `translateY(-20px)`
+      transform: `translate3d(-95px, -95px, 0px)`,
+      opacity: 0
     }
   });
 
-  // Chain
-  useChain(on ? [springRef, transitionRef] : [transitionRef, springRef], [
-    0,
-    0.2
-  ]);
-
-  // handleClick
-  const handleClick = () => {
-    toggle(!on);
-  };
-
-  // // useEffect
-  // React.useEffect(() => {
-  //   console.log(on);
-  // }, [on]);
+  //////////////////////////////////////// CHAIN
+  useChain(open ? [springRef, transitionRef] : [transitionRef, springRef], [ 0, 0.2 ]);
 
   return (
     <div className={"fab__container"}>
+      {/*////////////////////////////////////////  SMALL BUTTON */}
       <animated.div
         style={{
           transform: interpolate(
@@ -83,27 +77,27 @@ const Container: React.FC = () => {
         }}
         onClick={handleClick}
       >
-        <SmallButton>
+        <div className={"fab__button--small"}>
           <Arrow className={"button__icon--small"} />
-        </SmallButton>
+        </div>
       </animated.div>
-
+      {/* //////////////////////////////////////// MEDIUM BUTTON */}
       {transitions.map(({ item, key, props }) => (
         <animated.div
           key={key}
           style={{
             ...props,
+            position: "absolute",
             top: `${40 * (-1 + item)}px`
-            // transform: `translateY(${10 * item}px)`
           }}
         >
-          <MediumButton />
+          <div className={"fab__button--medium"}></div>
         </animated.div>
       ))}
-
-      <LargeButton>
+      {/* //////////////////////////////////////// LARGE BUTTON */}
+      <div className={"fab__button--large"}>
         <Plus className={"button__icon--large"} />
-      </LargeButton>
+      </div>
     </div>
   );
 };

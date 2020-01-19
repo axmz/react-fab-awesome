@@ -1,17 +1,16 @@
-import React from 'react'
-import './Styles.scss'
+import React, { useContext } from "react";
+import "./Styles.scss";
+import { Context, ContextType } from "../../context/Context";
 
-interface Props  {
-  val: string;
-}
+interface Props {}
 
-const Logger: React.FC<Props> = ({val}) => {
+const Logger: React.FC<Props> = () => {
+  const { log } = useContext(Context);
   return (
-    <div className={'logger__container'}>
-      <textarea defaultValue={val} rows={10}>
-      </textarea>
+    <div className={"logger__container"}>
+      <textarea defaultValue={log} rows={10}></textarea>
     </div>
-  )
-}
+  );
+};
 
-export default Logger
+export default Logger;

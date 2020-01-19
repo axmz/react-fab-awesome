@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { ReactNode } from "react";
 import './Styles.scss'
+import  { ContextType } from "../../context/Context";
 
-const LargeButton: React.FC = ({children}) => {
+interface LBProps {
+  children?: ReactNode;
+}
 
-  return (
-  <div className={'fab__button--large'}>{children}</div>
-  )
+const LargeButton: React.FC<LBProps> = ({children}) => {
+  return ( <div className={'fab__button--large'}>{children}</div>)
 }
 
 export default LargeButton
