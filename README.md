@@ -11,7 +11,7 @@
 # to fix
 
 - [x] longpress trigers normal click too  
-- [ ] scrolldown log when new item added  
+- [x] scrolldown log when new item added  
 - [ ]   
 - [ ]   
 

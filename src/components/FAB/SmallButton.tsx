@@ -1,8 +1,7 @@
-import React, { useContext, ReactNode, MutableRefObject } from "react";
+import React, {  ReactNode,  } from "react";
+import {  animated,  } from "react-spring";
 import styled from "styled-components";
 import "./Styles.scss";
-import { useSpring, animated, interpolate } from "react-spring";
-import { Context, ContextType } from "../../context/Context";
 
 interface Props {
   children: ReactNode;

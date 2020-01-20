@@ -3,7 +3,7 @@ import "./Screen.scss";
 
 interface Props {
   name?: string
-  // children: React.ReactNode
+  children: React.ReactNode
 }
 
 const Container: React.FC<Props> = ({children}) => {

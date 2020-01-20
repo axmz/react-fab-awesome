@@ -21,7 +21,6 @@ export default function() {
   const ctx = useContext(Context);
   const { open } = ctx;
   const toggleOpen = ctx.toggleOpen!;
-  const setLog = ctx.setLog!;
   const updateLog = ctx.updateLog!;
 
   //////////////////////////////////////// Refs
@@ -58,12 +57,7 @@ export default function() {
     updateLog(message);
     updateLog("Open: " + !open);
   };
-
-  const handleLargeButtonClick = (message: string) => {
-    closeMenu();
-    updateLog(message);
-    updateLog("Open: " + !open);
-  };
+  // Click handels for large button are in the LargeButton component
 
   //////////////////////////////////////// overlay
   const overlay = {
@@ -72,7 +66,6 @@ export default function() {
     touchAction: y.to(v => (v > 0 ? "auto" : "none")),
   };
   //////////////////////////////////////// Transition
-  const delay = 200;
   const items = [1, 2, 3];
   const transitions = useTransition(open ? items : [], (item: any) => item, {
     ref: transitionRef,
@@ -105,9 +98,11 @@ export default function() {
   });
 
   //////////////////////////////////////// CHAIN
+  const springStart = 0;
+  const transitionDelay = 0.2
   useChain(open ? [springRef, transitionRef] : [transitionRef, springRef], [
-    0,
-    0.2
+    springStart,
+    transitionDelay
   ]);
 
   return (
