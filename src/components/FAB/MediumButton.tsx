@@ -1,56 +1,25 @@
 import React, { useContext, ReactNode, MutableRefObject } from "react";
-import "./Styles.scss";
 import { useTransition, animated } from "react-spring";
+import styled from "styled-components";
+import "./Styles.scss";
 import { Context, ContextType } from "../../context/Context";
 
 interface Props {
   children?: ReactNode;
-  ref: MutableRefObject<null>;
+  style: {};
+  key: any;
+  item: any;
+  onClick: () => void;
 }
 
-const MediumButton: React.FC<Props> = ({ ref }) => {
-  const { open } = useContext(Context);
+// ${({ theme }) => theme.centeredCircleMixin()};
+const MB = styled(animated.div)`
+${({ theme }) => theme.circleMixin("1rem", "blue")};
+`;
 
-  // Transition
-  const delay = 200;
-  const items = [1, 2, 3];
-  const transitions = useTransition(open ? items : [], (item: any) => item, {
-    ref,
-    trail: 100,
-    config: { mass: 1, tension: 320, friction: 19 },
-    from: {
-      left: "50%",
-      opacity: 0,
-      transform: `translateY(-20px)`
-    },
-    enter: {
-        delay,
-        left: "50%",
-        opacity: 1,
-        transform: `translateY(0px)`
-    },
-    leave: {
-      left: "50%",
-      // transform: `translate3d(-95px, -95px, 0px)`,
-      opacity: 0,
-    }
-  });
-
+const MediumButton: React.FC<Props> = ({ key, style, item, ...otherProps }) => {
   return (
-    <>
-      {transitions.map(({ item, key, props }) => (
-        <animated.div
-          key={key}
-          style={{
-            ...props,
-            position: 'absolute',
-            top: `${40 * (-1 + item)}px`
-          }}
-        >
-          <div className={"fab__button--medium"}></div>
-        </animated.div>
-      ))}
-    </>
+    <MB key={key} style={style} {...otherProps}></MB>
   );
 };
 

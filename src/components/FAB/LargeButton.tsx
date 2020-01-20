@@ -1,13 +1,20 @@
 import React, { ReactNode } from "react";
-import './Styles.scss'
-import  { ContextType } from "../../context/Context";
+import styled from "styled-components";
+import "./Styles.scss";
 
 interface LBProps {
   children?: ReactNode;
+  onClick: () => void
 }
+
+const LB = styled.div`
+    ${({ theme }) => theme.circleMixin("1.8rem", "orange")};
+    margin: 0.8rem;
+  }
+`;
 
 const LargeButton: React.FC<LBProps> = ({children}) => {
-  return ( <div className={'fab__button--large'}>{children}</div>)
-}
+  return <LB>{children}</LB>;
+};
 
-export default LargeButton
+export default LargeButton;

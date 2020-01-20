@@ -1,6 +1,6 @@
 @mixin circle($p, $bc) {
   border-radius: 100%;
-  padding: $p * 1.5;
+  padding: $p;
   background-color: $bc;
 }
 
@@ -12,45 +12,82 @@
 }
 
 @mixin centered-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
+// V1
 .fab__container {
   position: absolute;
   bottom: 0;
   right: 0;
 
   .fab__button--large {
-    @include circle(1.2rem, orange);
+    @include circle(1.8rem, orange);
     margin: 0.8rem;
 
-    .button__icon--large {
-      @include centered-icon();
-      width: 25%;
-      height: 25%;
-      fill: white
-    }
+    // .button__icon--large {
+    //   @include centered-icon();
+    //   width: 25%;
+    //   height: 25%;
+    //   fill: white;
+    // }
   }
 
   .fab__button--medium {
-    @include circle(0.7rem, grey);
+    @include circle(1rem, grey);
     @include centered-circle();
-    top: -8rem;
+    // top: -8rem;
   }
 
   .fab__button--small {
-    @include circle(0.4rem, brown);
+    @include circle(0.6rem, brown);
     @include centered-circle();
     top: -1rem;
 
-    .button__icon--small {
-      @include centered-icon();
-      height: 10px;
-      width: 10px;
-      fill: white;
-    }
+    // .button__icon--small {
+    //   @include centered-icon();
+    //   height: 10px;
+    //   width: 10px;
+    //   fill: white;
+    // }
   }
 }
+
+.button__icon--small {
+  @include centered-icon();
+  height: 10px;
+  width: 10px;
+  fill: white;
+}
+.button__icon--large {
+  @include centered-icon();
+  width: 25%;
+  height: 25%;
+  fill: white;
+}
+
+// // V2
+// .fab__container {
+//   position: absolute;
+//   bottom: 0;
+//   right: 0;
+//   display: flex;
+//   flex-direction: column;
+
+// }
+
+// .button__icon--small {
+//   @include centered-icon();
+//   height: 10px;
+//   width: 10px;
+//   fill: white;
+// }
+// .button__icon--large {
+//   @include centered-icon();
+//   width: 25%;
+//   height: 25%;
+//   fill: white;
+// }

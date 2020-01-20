@@ -15,7 +15,10 @@ import {
 import "./Styles.scss";
 import { ReactComponent as Arrow } from "../../assets/arrow.svg";
 import { ReactComponent as Plus } from "../../assets/plus.svg";
+import LargeButton from "./LargeButton";
+import SmallButton from "./SmallButton";
 import { Context, ContextType } from "../../context/Context";
+import MediumButton from "./MediumButton";
 
 interface Props {}
 
@@ -31,42 +34,46 @@ const Container: React.FC<Props> = () => {
   const transitionRef = useRef(null);
 
   //////////////////////////////////////// Spring
-  const { y, rot } = useSpring({
+  const [{ y, rot }, set] = useSpring(() => ({
     ref: springRef,
     config: { mass: 1, tension: 320, friction: 23 },
-    from: { y: 0, rot: 0 },
-    y: open ? -170 : 0,
-    rot: open ? 180 : 0
-  });
-  // const [{ y, rot }, set, stop] = useSpring(() => ( {
-  //   ref: springRef,
-  //   config: { mass: 1, tension: 320, friction: 23 },
-  //   from: { y: 0, rot: 0 },
-  //   y: open ? -170 : 0,
-  //   rot: open ? 180 : 0
-  // } ));
+    from: { y: 0, rot: 0 }
+  }));
 
+  const openMenu = () => {
+    toggleOpen(true)
+    set({ y: -170, rot: 180 });
+  };
+  const closeMenu = () => {
+    toggleOpen(false)
+    set({ y: 0, rot: 0 });
+  };
   // handleClick
-  const handleSmallButtonClick = (message:string) => {
+  const handleSmallButtonClick = (message: string) => {
     toggleOpen(!open);
+    if (open) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
     setLog(prev => {
-      const newArr = [...prev]
-      newArr.push(message)
+      const newArr = [...prev];
+      newArr.push(message);
       return newArr;
     });
   };
-  const handleMediumButtonClick = (message:string) => {
+  const handleMediumButtonClick = (message: string) => {
     toggleOpen(!open);
     setLog(prev => {
-      const newArr = [...prev]
-      newArr.push(message)
+      const newArr = [...prev];
+      newArr.push(message);
       return newArr;
     });
   };
-  const handleLargeButtonClick = (message:string) => {
+  const handleLargeButtonClick = (message: string) => {
     setLog(prev => {
-      const newArr = [...prev]
-      newArr.push(message)
+      const newArr = [...prev];
+      newArr.push(message);
       return newArr;
     });
   };
@@ -79,20 +86,29 @@ const Container: React.FC<Props> = () => {
     trail: 100,
     config: { mass: 1, tension: 320, friction: 19 },
     from: {
-      left: "50%",
+      position: "absolute",
+      left: "0%",
+      right: "0%",
+      margin: "0 auto",
+      width: "0px",
       opacity: 0,
-      transform: `translateY(-20px)`
+      transform: `translate3d(${0}px, ${-20}px, 0px)`
+      // transform: `translateX(-50%) translateY(-20px)`,
     },
     enter: {
-      // delay,
-      left: "50%",
       opacity: 1,
-      transform: `translateY(0px)`
+      transform: `translate3d(${0}px, ${0}px, 0px)`
     },
-    leave: {
-      left: "50%",
-      transform: `translate3d(-95px, -95px, 0px)`,
-      opacity: 0
+    leave: item => {
+      let mod = item % 2;
+      let nr = -1;
+      if (mod) {
+        nr = 1;
+      }
+      return {
+        transform: `translate3d(${nr * 20}px, ${-20}px, 0px)`,
+        opacity: 0
+      };
     }
   });
 
@@ -105,37 +121,35 @@ const Container: React.FC<Props> = () => {
   return (
     <div className={"fab__container"}>
       {/*////////////////////////////////////////  SMALL BUTTON */}
-      <animated.div
+      <SmallButton
         style={{
           transform: interpolate(
             [y, rot],
-            (y, rot) =>
-              `translateX(${0}px) translateY(${y}px) rotateX(${rot}deg)`
+            (y, rot) => `translateY(${y}px) rotateX(${rot}deg)`
           )
         }}
         onClick={() => handleSmallButtonClick(`Small clicked`)}
       >
-        <div className={"fab__button--small"}>
-          <Arrow className={"button__icon--small"} />
-        </div>
-      </animated.div>
+        <Arrow className={"button__icon--small"} />
+      </SmallButton>
+
       {/* //////////////////////////////////////// MEDIUM BUTTON */}
       {transitions.map(({ item, key, props }) => (
-        <animated.div
+        <MediumButton
           key={key}
+          item={item}
           style={{
             ...props,
-            position: "absolute",
-            top: `${40 * (-1 + item)}px`
+            top: `${-9 + 3 * (-1 + item)}rem`
           }}
-        >
-          <div onClick={() => handleMediumButtonClick('Medium clicked')} className={"fab__button--medium"}></div>
-        </animated.div>
+          onClick={() => handleMediumButtonClick("Medium clicked")}
+        />
       ))}
+
       {/* //////////////////////////////////////// LARGE BUTTON */}
-      <div onClick={() => handleLargeButtonClick('Large clicked')} className={"fab__button--large"}>
+      <LargeButton onClick={() => handleLargeButtonClick("Large clicked")}>
         <Plus className={"button__icon--large"} />
-      </div>
+      </LargeButton>
     </div>
   );
 };

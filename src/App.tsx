@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ThemeProvider } from "styled-components";
 import "./App.scss";
 import Screen from "./components/Screen/Screen";
 import FAB from "./components/FAB/Container";
@@ -10,13 +11,36 @@ const App: React.FC = () => {
   const [log, setLog] = useState<string[]>([]);
   const store = { open, toggleOpen, log, setLog };
 
+  const theme = {
+    circleMixin: (p: string, bc: string) => `
+    border-radius: 100%;
+    padding: ${p};
+    background-color: ${bc};
+    `,
+    centeredCircleMixin: () => `
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    margin: 0px auto;
+    width: 0px;
+    `,
+    centeredIconMixin: () => `
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    `
+  };
+
   return (
     <div className="App">
       <Provider value={store}>
-        <Screen>
-          <Logger />
-          <FAB />
-        </Screen>
+        <ThemeProvider theme={theme}>
+          <Screen>
+            <Logger />
+            <FAB />
+          </Screen>
+        </ThemeProvider>
       </Provider>
     </div>
   );
