@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import "./App.scss";
 import Screen from "./components/Screen/Screen";
-import FAB from "./components/FAB/Container";
+import FAB from "./components/FAB";
 import Logger from "./components/Logger/Logger";
 import Provider from "./context/Context";
 

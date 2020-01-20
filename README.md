@@ -4,6 +4,7 @@
 - [ ] long press feature  
 - [ ] left / above  
 - [ ] swipe to close / open  
+- [ ] overlay  
 - [ ]   
 - [ ]   
 

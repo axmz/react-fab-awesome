@@ -19,7 +19,7 @@ ${({ theme }) => theme.circleMixin("1rem", "blue")};
 
 const MediumButton: React.FC<Props> = ({ key, style, item, ...otherProps }) => {
   return (
-    <MB key={key} style={style} {...otherProps}></MB>
+    <MB style={style} {...otherProps}></MB>
   );
 };
 
