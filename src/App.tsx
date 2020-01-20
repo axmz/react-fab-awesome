@@ -7,7 +7,7 @@ import Provider from "./context/Context";
 
 const App: React.FC = () => {
   const [open, toggleOpen] = useState<boolean>(false);
-  const [log, setLog] = useState<string>("");
+  const [log, setLog] = useState<string[]>([]);
   const store = { open, toggleOpen, log, setLog };
 
   return (

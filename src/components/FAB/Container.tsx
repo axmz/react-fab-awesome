@@ -1,4 +1,10 @@
-import React, { ReactNode, useRef, useContext, MutableRefObject, useState } from "react";
+import React, {
+  ReactNode,
+  useRef,
+  useContext,
+  MutableRefObject,
+  useState
+} from "react";
 import {
   interpolate,
   useSpring,
@@ -14,9 +20,11 @@ import { Context, ContextType } from "../../context/Context";
 interface Props {}
 
 const Container: React.FC<Props> = () => {
-  const { log, setLog } = useContext(Context);
-  // const { open, toggleOpen, log, setLog } = useContext(Context);
-  const [open, toggleOpen] = useState<boolean>(false);
+  //////////////////////////////////////// Context
+  const ctx = useContext(Context);
+  const { open, log } = ctx;
+  const toggleOpen = ctx.toggleOpen!;
+  const setLog = ctx.setLog!;
 
   //////////////////////////////////////// Refs
   const springRef = useRef(null);
@@ -30,10 +38,30 @@ const Container: React.FC<Props> = () => {
     y: open ? -170 : 0,
     rot: open ? 180 : 0
   });
+  // const [{ y, rot }, set, stop] = useSpring(() => ( {
+  //   ref: springRef,
+  //   config: { mass: 1, tension: 320, friction: 23 },
+  //   from: { y: 0, rot: 0 },
+  //   y: open ? -170 : 0,
+  //   rot: open ? 180 : 0
+  // } ));
 
   // handleClick
-  const handleClick = () => {
-      toggleOpen(!open);
+  const handleSmallButtonClick = (message:string) => {
+    toggleOpen(!open);
+    setLog(prev => {
+      const newArr = [...prev]
+      newArr.push(message)
+      return newArr;
+    });
+  };
+  const handleMediumButtonClick = (message:string) => {
+    toggleOpen(!open);
+    setLog(prev => {
+      const newArr = [...prev]
+      newArr.push(message)
+      return newArr;
+    });
   };
 
   //////////////////////////////////////// Transition
@@ -62,7 +90,10 @@ const Container: React.FC<Props> = () => {
   });
 
   //////////////////////////////////////// CHAIN
-  useChain(open ? [springRef, transitionRef] : [transitionRef, springRef], [ 0, 0.2 ]);
+  useChain(open ? [springRef, transitionRef] : [transitionRef, springRef], [
+    0,
+    0.2
+  ]);
 
   return (
     <div className={"fab__container"}>
@@ -75,7 +106,7 @@ const Container: React.FC<Props> = () => {
               `translateX(${0}px) translateY(${y}px) rotateX(${rot}deg)`
           )
         }}
-        onClick={handleClick}
+        onClick={() => handleSmallButtonClick(`Small clicked`)}
       >
         <div className={"fab__button--small"}>
           <Arrow className={"button__icon--small"} />
@@ -91,7 +122,7 @@ const Container: React.FC<Props> = () => {
             top: `${40 * (-1 + item)}px`
           }}
         >
-          <div className={"fab__button--medium"}></div>
+          <div onClick={() => handleMediumButtonClick('Medium clicked')} className={"fab__button--medium"}></div>
         </animated.div>
       ))}
       {/* //////////////////////////////////////// LARGE BUTTON */}

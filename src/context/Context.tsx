@@ -4,8 +4,8 @@ import { ReactNode, Dispatch, SetStateAction } from "react";
 export interface ContextType {
   open: boolean;
   toggleOpen: Dispatch<SetStateAction<boolean>>;
-  log: string;
-  setLog: Dispatch<SetStateAction<string>>;
+  log: string[];
+  setLog: Dispatch<SetStateAction<string[]>>;
 }
 
 interface Props {
