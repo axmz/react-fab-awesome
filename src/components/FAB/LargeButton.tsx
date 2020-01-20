@@ -13,8 +13,8 @@ const LB = styled.div`
   }
 `;
 
-const LargeButton: React.FC<LBProps> = ({children}) => {
-  return <LB>{children}</LB>;
+const LargeButton: React.FC<LBProps> = ({children, ...otherProps}) => {
+  return <LB {...otherProps}>{children}</LB>;
 };
 
 export default LargeButton;

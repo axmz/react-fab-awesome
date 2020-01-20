@@ -40,42 +40,39 @@ const Container: React.FC<Props> = () => {
     from: { y: 0, rot: 0 }
   }));
 
+  //////////////////////////////////////// functions
   const openMenu = () => {
-    toggleOpen(true)
+    toggleOpen(true);
     set({ y: -170, rot: 180 });
   };
   const closeMenu = () => {
-    toggleOpen(false)
+    toggleOpen(false);
     set({ y: 0, rot: 0 });
   };
-  // handleClick
+
+  function updateLog(message: string) {
+    setLog(prev => {
+      const newArr = [...prev];
+      newArr.push(message);
+      return newArr;
+    });
+  }
+
+  //////////////////////////////////////// handleClicks
   const handleSmallButtonClick = (message: string) => {
-    toggleOpen(!open);
-    if (open) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-    setLog(prev => {
-      const newArr = [...prev];
-      newArr.push(message);
-      return newArr;
-    });
+    open ? closeMenu() : openMenu();
+    updateLog(message);
+    updateLog('Open: ' + !open);
   };
+
   const handleMediumButtonClick = (message: string) => {
-    toggleOpen(!open);
-    setLog(prev => {
-      const newArr = [...prev];
-      newArr.push(message);
-      return newArr;
-    });
+    open ? closeMenu() : openMenu();
+    updateLog(message);
+    updateLog('Open: ' + !open);
   };
+
   const handleLargeButtonClick = (message: string) => {
-    setLog(prev => {
-      const newArr = [...prev];
-      newArr.push(message);
-      return newArr;
-    });
+    updateLog(message);
   };
 
   //////////////////////////////////////// Transition

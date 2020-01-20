@@ -21,7 +21,8 @@ const App: React.FC = () => {
     position: absolute;
     left: 0%;
     right: 0%;
-    margin: 0px auto;
+    margin-left: auto;
+    margin-right: auto;
     width: 0px;
     `,
     centeredIconMixin: () => `
