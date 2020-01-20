@@ -63,6 +63,13 @@ const Container: React.FC<Props> = () => {
       return newArr;
     });
   };
+  const handleLargeButtonClick = (message:string) => {
+    setLog(prev => {
+      const newArr = [...prev]
+      newArr.push(message)
+      return newArr;
+    });
+  };
 
   //////////////////////////////////////// Transition
   const delay = 200;
@@ -126,7 +133,7 @@ const Container: React.FC<Props> = () => {
         </animated.div>
       ))}
       {/* //////////////////////////////////////// LARGE BUTTON */}
-      <div className={"fab__button--large"}>
+      <div onClick={() => handleLargeButtonClick('Large clicked')} className={"fab__button--large"}>
         <Plus className={"button__icon--large"} />
       </div>
     </div>
