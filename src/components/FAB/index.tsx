@@ -22,6 +22,7 @@ export default function() {
   const { open } = ctx;
   const toggleOpen = ctx.toggleOpen!;
   const setLog = ctx.setLog!;
+  const updateLog = ctx.updateLog!;
 
   //////////////////////////////////////// Refs
   const springRef = useRef(null);
@@ -45,14 +46,6 @@ export default function() {
     set({ y: 0, rot: 0 });
   };
 
-  function updateLog(message: string) {
-    setLog(prev => {
-      const newArr = [...prev];
-      newArr.push(message);
-      return newArr;
-    });
-  }
-
   //////////////////////////////////////// handleClicks
   const handleSmallButtonClick = (message: string) => {
     open ? closeMenu() : openMenu();
@@ -67,14 +60,16 @@ export default function() {
   };
 
   const handleLargeButtonClick = (message: string) => {
+    closeMenu();
     updateLog(message);
+    updateLog("Open: " + !open);
   };
 
   //////////////////////////////////////// overlay
   const overlay = {
-    zIndex: 10,
+    zIndex: open ? 1 : -1,
     opacity: y.to([0, height], [0, 1]),
-    touchAction: y.to(v => (v > 0 ? "auto" : "none"))
+    touchAction: y.to(v => (v > 0 ? "auto" : "none")),
   };
   //////////////////////////////////////// Transition
   const delay = 200;
@@ -141,7 +136,7 @@ export default function() {
             onClick={() => handleMediumButtonClick("Medium clicked")}
           />
         ))}
-        <LargeButton onClick={() => handleLargeButtonClick("Large clicked")}>
+        <LargeButton>
           <Plus className={"button__icon--large"} />
         </LargeButton>
       </Container>

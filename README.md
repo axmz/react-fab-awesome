@@ -1,10 +1,17 @@
 # todo
 
 - [x] media queries, full screen on mobile  
-- [ ] long press feature  
-- [ ] left / above  
+- [x] long press feature https://stackoverflow.com/questions/48048957/react-long-press-event  
+- [ ] left / above?  
 - [ ] swipe to close / open  
-- [ ] overlay  
+- [x] overlay  
+- [ ]   
+- [ ]   
+
+# to fix
+
+- [x] longpress trigers normal click too  
+- [ ] scrolldown log when new item added  
 - [ ]   
 - [ ]   
 

@@ -1,10 +1,13 @@
-import React, { ReactNode } from "react";
+import React, {useContext, ReactNode } from "react";
 import styled from "styled-components";
+import useLongPress from '../../Utils/longpress'
+import {Context} from '../../context/Context'
 import "./Styles.scss";
+
 
 interface LBProps {
   children?: ReactNode;
-  onClick: () => void
+  onClick?: () => void
 }
 
 const LB = styled.div`
@@ -14,7 +17,11 @@ const LB = styled.div`
 `;
 
 const LargeButton: React.FC<LBProps> = ({children, ...otherProps}) => {
-  return <LB {...otherProps}>{children}</LB>;
+  const ctx = useContext(Context);
+  const updateLog = ctx.updateLog!;
+
+  const bind = useLongPress(() => updateLog('Short press'), () => updateLog('Long press'), 1000);
+  return <LB {...otherProps} {...bind}>{children}</LB>;
 };
 
 export default LargeButton;
