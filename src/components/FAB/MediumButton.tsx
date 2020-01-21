@@ -12,10 +12,10 @@ interface Props {
 }
 
 const MB = styled(animated.div)`
-  ${({ theme }) => theme.circleMixin("1rem", "blue")};
+  ${({ theme }) => theme.circleMixin("1rem", "#c6c1bb")};
 `;
 
-const MediumButton: React.FC<Props> = ({ key, style, item, ...otherProps }) => {
+const MediumButton: React.FC<Props> = ({ style, item, ...otherProps }) => {
   return <MB style={style} {...otherProps}></MB>;
 };
 

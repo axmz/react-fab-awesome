@@ -10,7 +10,7 @@ interface Props {
 }
 
 const SB = styled(animated.div)`
-  ${({ theme }) => theme.circleMixin("0.6rem", "brown")};
+  ${({ theme }) => theme.circleMixin("0.6rem", "#589d62")};
   ${({ theme }) => theme.centeredCircleMixin()};
   top: -1rem;
 `;

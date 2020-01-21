@@ -46,18 +46,24 @@ export default function() {
   };
 
   //////////////////////////////////////// handleClicks
-  const handleSmallButtonClick = (message: string) => {
+  const handleSmallButtonClick = () => {
     open ? closeMenu() : openMenu();
-    updateLog(message);
+    updateLog('Small clicked');
     updateLog("Open: " + !open);
   };
 
-  const handleMediumButtonClick = (message: string) => {
+  const handleMediumButtonClick = () => {
     open ? closeMenu() : openMenu();
-    updateLog(message);
+    updateLog('Medium clicked');
     updateLog("Open: " + !open);
   };
   // Click handels for large button are in the LargeButton component
+
+  const handleOverlayClick = () => {
+    closeMenu();
+    updateLog('Overlay clicked');
+    updateLog("Open: " + !open);
+  }
 
   //////////////////////////////////////// overlay
   const overlay = {
@@ -107,7 +113,7 @@ export default function() {
 
   return (
     <>
-      <Overlay style={overlay} />
+      <Overlay onClick={() => handleOverlayClick()} style={overlay} />
       <Container>
         <SmallButton
           style={{
@@ -116,7 +122,7 @@ export default function() {
               (y, rot) => `translateY(${y}px) rotateX(${rot}deg)`
             )
           }}
-          onClick={() => handleSmallButtonClick(`Small clicked`)}
+          onClick={() => handleSmallButtonClick()}
         >
           <Arrow className={"button__icon--small"} />
         </SmallButton>
@@ -128,7 +134,7 @@ export default function() {
               ...props,
               top: `${-9 + 3 * (-1 + item)}rem`
             }}
-            onClick={() => handleMediumButtonClick("Medium clicked")}
+            onClick={() => handleMediumButtonClick()}
           />
         ))}
         <LargeButton>

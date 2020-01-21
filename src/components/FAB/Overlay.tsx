@@ -11,13 +11,14 @@ const O = styled(animated.div)`
   background-color: rgba(0,0,0,0.6)
 `
 interface Props {
-  style: {}
+  style: {};
+  onClick: () => void
 }
 
-const Overlay: React.FC<Props> = ({style}) => {
+const Overlay: React.FC<Props> = ({style, ...otherProps}) => {
 
   return (
-    <O style={style}></O>
+    <O {...otherProps} style={style}></O>
   )
 }
 

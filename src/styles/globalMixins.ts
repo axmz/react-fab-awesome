@@ -3,6 +3,7 @@ export const theme = {
     border-radius: 100%;
     padding: ${p};
     background-color: ${bc};
+    box-shadow: 0px 1px 4px 1px rgba(0,0,0,0.2);
     `,
   centeredCircleMixin: () => `
     position: absolute;

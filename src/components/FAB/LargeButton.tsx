@@ -10,7 +10,7 @@ interface LBProps {
 }
 
 const LB = styled.div`
-    ${({ theme }) => theme.circleMixin("1.8rem", "orange")};
+    ${({ theme }) => theme.circleMixin("1.8rem", "#536d6c")};
     margin: 0.8rem;
     user-select: none;
   }
