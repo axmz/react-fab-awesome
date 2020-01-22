@@ -40,37 +40,27 @@ export default function() {
     toggleOpen(true);
     set({ y: height, rot: 180 });
   };
+
   const closeMenu = () => {
     toggleOpen(false);
     set({ y: 0, rot: 0 });
   };
 
   //////////////////////////////////////// handleClicks
-  const handleSmallButtonClick = () => {
+  const handleButtonClick = (message: string) => {
     open ? closeMenu() : openMenu();
-    updateLog('Small clicked');
+    updateLog(message);
     updateLog("Open: " + !open);
   };
 
-  const handleMediumButtonClick = () => {
-    open ? closeMenu() : openMenu();
-    updateLog('Medium clicked');
-    updateLog("Open: " + !open);
-  };
   // Click handels for large button are in the LargeButton component
 
   const handleOverlayClick = () => {
     closeMenu();
-    updateLog('Overlay clicked');
+    updateLog("Overlay clicked");
     updateLog("Open: " + !open);
-  }
-
-  //////////////////////////////////////// overlay
-  const overlay = {
-    zIndex: open ? 1 : -1,
-    opacity: y.to([0, height], [0, 1]),
-    touchAction: y.to(v => (v > 0 ? "auto" : "none")),
   };
+
   //////////////////////////////////////// Transition
   const items = [1, 2, 3];
   const transitions = useTransition(open ? items : [], (item: any) => item, {
@@ -105,7 +95,7 @@ export default function() {
 
   //////////////////////////////////////// CHAIN
   const springStart = 0;
-  const transitionDelay = 0.2
+  const transitionDelay = 0.2;
   useChain(open ? [springRef, transitionRef] : [transitionRef, springRef], [
     springStart,
     transitionDelay
@@ -113,7 +103,14 @@ export default function() {
 
   return (
     <>
-      <Overlay onClick={() => handleOverlayClick()} style={overlay} />
+      <Overlay
+        onClick={() => handleOverlayClick()}
+        style={{
+          zIndex: open ? 1 : -1,
+          opacity: y.to([0, height], [0, 1]),
+          touchAction: y.to(v => (v > 0 ? "auto" : "none"))
+        }}
+      />
       <Container>
         <SmallButton
           style={{
@@ -122,7 +119,7 @@ export default function() {
               (y, rot) => `translateY(${y}px) rotateX(${rot}deg)`
             )
           }}
-          onClick={() => handleSmallButtonClick()}
+          onClick={() => handleButtonClick("Small button clicked")}
         >
           <Arrow className={"button__icon--small"} />
         </SmallButton>
@@ -130,11 +127,8 @@ export default function() {
           <MediumButton
             key={key}
             item={item}
-            style={{
-              ...props,
-              top: `${-9 + 3 * (-1 + item)}rem`
-            }}
-            onClick={() => handleMediumButtonClick()}
+            style={{ ...props, top: `${-9 + 3 * (-1 + item)}rem` }}
+            onClick={() => handleButtonClick("Medium button clicked")}
           />
         ))}
         <LargeButton>

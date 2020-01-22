@@ -13,7 +13,6 @@ const Logger: React.FC<Props> = () => {
       const height = ref.current.scrollHeight;
       ref.current.scrollTo({ top: height, left: 0, behavior: "smooth" });
     }
-    console.log("works");
   }, [log]);
 
   let parsed = "";

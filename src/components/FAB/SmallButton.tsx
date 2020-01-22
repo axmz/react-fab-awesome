@@ -6,7 +6,7 @@ import "./Styles.scss";
 interface Props {
   children: ReactNode;
   style: {};
-  onClick: () => void
+  onClick: () => void;
 }
 
 const SB = styled(animated.div)`

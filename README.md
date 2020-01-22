@@ -5,6 +5,7 @@
 - [ ] left / above?  
 - [ ] swipe to close / open  
 - [x] overlay  
+- [ ] modularity  
 - [ ]   
 - [ ]   
 
