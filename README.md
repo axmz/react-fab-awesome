@@ -5,7 +5,7 @@
 - [ ] left / above?  
 - [ ] swipe to close / open  
 - [x] overlay  
-- [ ] modularity  
+- [ ] modularity / for left handed  
 - [ ]   
 - [ ]   
 
@@ -13,7 +13,7 @@
 
 - [x] longpress trigers normal click too  
 - [x] scrolldown log when new item added  
-- [ ]   
+- [ ] closeMenu when large button is clicked  
 - [ ]   
 
 # learned

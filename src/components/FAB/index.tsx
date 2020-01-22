@@ -1,5 +1,6 @@
 import React, { useRef, useContext } from "react";
 import { interpolate, useSpring, useTransition, useChain } from "react-spring";
+import { useDrag } from "react-use-gesture";
 import "./Styles.scss";
 
 // SVG
@@ -28,10 +29,10 @@ export default function() {
   const transitionRef = useRef(null);
 
   //////////////////////////////////////// Spring
-  const height = -170;
+  const height = -175;
   const [{ y, rot }, set] = useSpring(() => ({
     ref: springRef,
-    config: { mass: 1, tension: 320, friction: 23 },
+    config: { mass: 1, tension: 320, friction: 25 },
     from: { y: 0, rot: 0 }
   }));
 
@@ -60,6 +61,11 @@ export default function() {
     updateLog("Overlay clicked");
     updateLog("Open: " + !open);
   };
+
+  //////////////////////////////////////// Gestures
+  const bind = useDrag(({ down, movement: [mx, my] }) => {
+    console.log(my)
+  });
 
   //////////////////////////////////////// Transition
   const items = [1, 2, 3];
@@ -113,6 +119,7 @@ export default function() {
       />
       <Container>
         <SmallButton
+          {...bind()}
           style={{
             transform: interpolate(
               [y, rot],
