@@ -1,7 +1,4 @@
-import React, {
-  useContext,
-  useEffect
-} from "react";
+import React, { useContext, useEffect } from "react";
 import { useChain } from "react-spring";
 import "./Styles.scss";
 
@@ -27,14 +24,12 @@ export default function() {
 
   //////////////////////////////////////// CHAIN
   const springStart = 0;
-  const transitionDelay = .2;
-  useEffect(() => {
-    console.log("colrefs", collectedRefs);
-  }, [collectedRefs]);
+  const transitionDelay = 0.2;
 
-  useChain(open ? collectedRefs : collectedRefs.slice().reverse()
-  , [ springStart, transitionDelay ]
-  );
+  useChain(open ? collectedRefs : collectedRefs.slice().reverse(), [
+    springStart,
+    transitionDelay
+  ]);
 
   return (
     <>
@@ -45,7 +40,7 @@ export default function() {
         </SmallButton>
         <MediumButton />
         <LargeButton>
-          <Plus/>
+          <Plus />
         </LargeButton>
       </Container>
     </>

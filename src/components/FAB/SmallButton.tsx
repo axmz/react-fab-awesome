@@ -28,62 +28,55 @@ const SmallButton: React.FC<Props> = ({ children, ...otherProps }) => {
   const updateLog = ctx.updateLog!;
   const collectRef = ctx.collectRef!;
   const forgetRef = ctx.forgetRef!;
-  const setY = ctx.setY!;
 
   //////////////////////////////////////// Refs
   const springRef = useRef() as React.RefObject<SpringHandle>;
 
   //////////////////////////////////////// Spring
   const height = -180;
-  const [{ y, rot, color }, set] = useSpring(() => ({
+  const config = { mass: 1, tension: 320, friction: 25 };
+
+  const [{ y, rot}, set] = useSpring(() => ({
     ref: springRef,
-    config: { mass: 1, tension: 320, friction: 25 },
+    config,
     from: { y: 0, rot: 0, color: "red" }
   }));
 
+  //////////////////////////////////////// open / close
+  const openMenu = () => {
+    set({ y: height, rot: 180 });
+  };
+
+  const closeMenu = () => {
+    set({ y: 0, rot: 0 });
+  };
+
   //////////////////////////////////////// useEffect
   useEffect(() => {
-    if (open) {
-      set({ y: height, rot: 180 });
-    } else {
-      set({ y: 0, rot: 0 });
-    }
-  }, [open, set, height]);
+    open ? openMenu() : closeMenu();
+  }, [open]);
 
   useEffect(() => {
     collectRef(springRef);
-
     return () => {
       forgetRef(springRef);
     };
   }, [collectRef, forgetRef, springRef]);
+
   //////////////////////////////////////// handleClicks
   const handleButtonClick = (message: string) => {
     toggleOpen(!open);
-    setY(y);
     updateLog(message);
     updateLog("Open: " + !open);
   };
 
   //////////////////////////////////////// Gestures
-  const bind = useDrag(({ down, movement: [mx, my] }) => {
-    set({ y: down ? my : 0 });
-    console.log(y);
-    console.log(my);
-  });
+  const style = {
+    transform : to( [y, rot], (y, rot) => `translateY(${y}px) rotateX(${rot}deg)`)
+  };
 
   return (
-    <animated.div
-      {...bind()}
-      style={{
-        transform: to(
-          [y, rot],
-          (y, rot) => `translateY(${y}px) rotateX(${rot}deg)`
-        ),
-        backgroundColor: color
-      }}
-      className={'SB'}
-    >
+    <animated.div style={style} className={"SB"}>
       <SB
         onClick={() => handleButtonClick("Small button clicked")}
         {...otherProps}
