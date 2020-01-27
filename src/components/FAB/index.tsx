@@ -1,11 +1,8 @@
 import React, {
-  useCallback,
-  useState,
-  useRef,
   useContext,
   useEffect
 } from "react";
-import { useChain, SpringHandle } from "react-spring";
+import { useChain } from "react-spring";
 import "./Styles.scss";
 
 // SVG
@@ -48,7 +45,7 @@ export default function() {
         </SmallButton>
         <MediumButton />
         <LargeButton>
-          <Plus className={"button__icon--large"} />
+          <Plus/>
         </LargeButton>
       </Container>
     </>

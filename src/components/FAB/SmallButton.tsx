@@ -1,11 +1,5 @@
-import React, {
-  useRef,
-  useEffect,
-  createContext,
-  useContext,
-  ReactNode
-} from "react";
-import { interpolate, animated, useSpring, SpringHandle } from "react-spring";
+import React, { useRef, useEffect, useContext, ReactNode } from "react";
+import { to, animated, useSpring, SpringHandle } from "react-spring";
 import { useDrag } from "react-use-gesture";
 import styled from "styled-components";
 import "./Styles.scss";
@@ -19,7 +13,7 @@ interface Props {
 }
 
 // styled
-const SB = styled(animated.div)`
+const SB = styled.div`
   ${({ theme }) => theme.circleMixin("0.6rem", "#589d62")};
   ${({ theme }) => theme.centeredCircleMixin()};
   top: -1.1rem;
@@ -29,7 +23,7 @@ const SB = styled(animated.div)`
 const SmallButton: React.FC<Props> = ({ children, ...otherProps }) => {
   //////////////////////////////////////// Context
   const ctx = useContext(Context);
-  const { open, Y } = ctx;
+  const open = ctx.open!;
   const toggleOpen = ctx.toggleOpen!;
   const updateLog = ctx.updateLog!;
   const collectRef = ctx.collectRef!;
@@ -40,12 +34,21 @@ const SmallButton: React.FC<Props> = ({ children, ...otherProps }) => {
   const springRef = useRef() as React.RefObject<SpringHandle>;
 
   //////////////////////////////////////// Spring
-  const height = -175;
-  const [{ y, rot }, set] = useSpring(() => ({
+  const height = -180;
+  const [{ y, rot, color }, set] = useSpring(() => ({
     ref: springRef,
     config: { mass: 1, tension: 320, friction: 25 },
-    from: { y: 0, rot: 0 }
+    from: { y: 0, rot: 0, color: "red" }
   }));
+
+  //////////////////////////////////////// useEffect
+  useEffect(() => {
+    if (open) {
+      set({ y: height, rot: 180 });
+    } else {
+      set({ y: 0, rot: 0 });
+    }
+  }, [open, set, height]);
 
   useEffect(() => {
     collectRef(springRef);
@@ -54,45 +57,40 @@ const SmallButton: React.FC<Props> = ({ children, ...otherProps }) => {
       forgetRef(springRef);
     };
   }, [collectRef, forgetRef, springRef]);
-
-  //////////////////////////////////////// functions
-
-  const openMenu = () => {
-    toggleOpen(true);
-    set({ y: height, rot: 180 });
-    setY(height);
-  };
-
-  const closeMenu = () => {
-    toggleOpen(false);
-    set({ y: 0, rot: 0 });
-    setY(0);
-  };
-
   //////////////////////////////////////// handleClicks
   const handleButtonClick = (message: string) => {
-    open ? closeMenu() : openMenu();
+    toggleOpen(!open);
+    setY(y);
     updateLog(message);
     updateLog("Open: " + !open);
   };
 
   //////////////////////////////////////// Gestures
-  const bind = useDrag(({ down, movement: [mx, my] }) => {});
+  const bind = useDrag(({ down, movement: [mx, my] }) => {
+    set({ y: down ? my : 0 });
+    console.log(y);
+    console.log(my);
+  });
 
   return (
-    <SB
+    <animated.div
       {...bind()}
       style={{
-        transform: interpolate(
+        transform: to(
           [y, rot],
           (y, rot) => `translateY(${y}px) rotateX(${rot}deg)`
-        )
+        ),
+        backgroundColor: color
       }}
-      onClick={() => handleButtonClick("Small button clicked")}
-      {...otherProps}
+      className={'SB'}
     >
-      {children}
-    </SB>
+      <SB
+        onClick={() => handleButtonClick("Small button clicked")}
+        {...otherProps}
+      >
+        {children}
+      </SB>
+    </animated.div>
   );
 };
 

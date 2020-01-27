@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useEffect,
-  useContext,
-  ReactNode,
-  RefObject
-} from "react";
+import React, { useRef, useEffect, useContext, ReactNode } from "react";
 import { useTransition, animated, SpringHandle } from "react-spring";
 import styled from "styled-components";
 import "./Styles.scss";
@@ -19,7 +13,7 @@ interface Props {
 
 // styled
 interface StyledProps {
-  style: any
+  style: any;
 }
 // const MB: React.FC<StyledProps> = styled(animated.div)`
 const MB = styled(animated.div)`
@@ -86,15 +80,16 @@ const MediumButton: React.FC = ({ ...otherProps }) => {
   };
 
   return (
-    <div>
+    <>
       {transitions.map(({ key, props }) => (
         <MB
+          className={"MB"}
           key={key}
           style={props}
           onClick={() => handleButtonClick("Medium button clicked")}
         />
       ))}
-    </div>
+    </>
   );
 };
 

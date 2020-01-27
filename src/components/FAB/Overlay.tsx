@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import {interpolate, animated } from "react-spring";
+import { animated, useSpring } from "react-spring";
 // Ctx
 import { Context } from "../../context/Context";
 
@@ -23,24 +23,20 @@ const Overlay: React.FC<Props> = () => {
   const updateLog = ctx.updateLog!;
 
   const handleOverlayClick = () => {
-    toggleOpen(!open)
+    toggleOpen(!open);
     updateLog("Overlay clicked");
     updateLog("Open: " + !open);
   };
 
-  return (
-    <O
-      onClick={() => handleOverlayClick()}
-      style={{
-        zIndex: open ? 1 : -1,
-        // maybe interpolate on open only
-        opacity: open ? 1 : 0,
-        touchAction: open ? "auto" : "none"
-        // opacity: y.to([0, height], [0, 1]),
-        // touchAction: y.to(v => (v > 0 ? "auto" : "none"))
-      }}
-    ></O>
-  );
+ const { number } = useSpring({ number: open ? 1 : 0, from: { number: 0 }})
+
+  let styles = {
+    zIndex: open ? 1 : -1,
+    opacity: number,
+    touchAction: open ? "auto" : "none"
+  };
+
+  return <O onClick={() => handleOverlayClick()} style={styles}></O>;
 };
 
 export default Overlay;

@@ -8,6 +8,7 @@ import Screen from "./components/Screen/Screen";
 import FAB from "./components/FAB";
 import Logger from "./components/Logger/Logger";
 import Provider from "./context/Context";
+import Switch from "./components/Switch/Switch";
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <Provider>
           <Screen>
+            <Switch/>
             <Logger />
             <FAB />
           </Screen>
