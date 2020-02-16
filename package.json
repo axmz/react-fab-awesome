@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "http://axmz.github.io/react-fab-awesome",
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
