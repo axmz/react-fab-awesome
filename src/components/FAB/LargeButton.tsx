@@ -8,7 +8,6 @@ interface LBProps {
   children?: ReactNode;
 }
 
-// ${({ theme }) => theme.centeredCircleMixin()};
 const LB = styled.div`
     ${({ theme }) => theme.circleMixin("1.8rem", "#536d6c")};
     margin: 0.8rem;

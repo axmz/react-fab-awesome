@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import styled, { StyledComponent, StyledFunction } from "styled-components";
+import styled  from "styled-components";
 import { Context } from "../../context/Context";
 
 const C = styled.div<any>`
@@ -11,7 +11,6 @@ const C = styled.div<any>`
 
 const Container: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { checked } = useContext(Context);
-  console.log(checked);
   return <C left={checked}>{children}</C>;
 };
 

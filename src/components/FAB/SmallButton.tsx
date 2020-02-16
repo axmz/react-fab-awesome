@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useContext, ReactNode } from "react";
 import { to, animated, useSpring, SpringHandle } from "react-spring";
-import { useDrag } from "react-use-gesture";
 import styled from "styled-components";
 import "./Styles.scss";
 
