@@ -22,7 +22,7 @@ interface Props {
   children: ReactNode;
 }
 
-export const Context = createContext<Partial<ContextType>>({});
+export const Context = createContext<Partial<ContextType>>({open: false});
 
 const Provider: React.FC<Props> = ({ children }) => {
   const [Y, setY] = useState<SpringValue<number>>();

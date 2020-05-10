@@ -1,28 +1,13 @@
 import React, { useRef, useEffect, useContext, ReactNode } from "react";
 import { useTransition, animated, SpringHandle } from "react-spring";
 import styled from "styled-components";
-import "./Styles.scss";
+import "../Styles.scss";
+import MediumButton from "./MediumButton"
 
 // Ctx
-import { Context } from "../../context/Context";
+import { Context } from "../../../context/Context";
 
-// Props
-interface Props {
-  children?: ReactNode;
-}
-
-// styled
-interface StyledProps {
-  style: any;
-}
-// const MB: React.FC<StyledProps> = styled(animated.div)`
-const MB = styled(animated.div)`
-  ${({ theme }) => theme.circleMixin("1rem", "#c6c1bb")};
-  ${({ theme }) => theme.centeredCircleMixin()};
-`;
-
-// component
-const MediumButton: React.FC = ({ ...otherProps }) => {
+const MediumButtonContainer = () => {
   //////////////////////////////////////// Context
   const ctx = useContext(Context);
   const { open } = ctx;
@@ -79,18 +64,14 @@ const MediumButton: React.FC = ({ ...otherProps }) => {
     updateLog("Open: " + !open);
   };
 
+
   return (
     <>
       {transitions.map(({ key, props }) => (
-        <MB
-          className={"MB"}
-          key={key}
-          style={props}
-          onClick={() => handleButtonClick("Medium button clicked")}
-        />
+        <MediumButton key={key} props={props} handleClick={handleButtonClick}/>
       ))}
     </>
-  );
-};
+  )
+}
 
-export default MediumButton;
+export default MediumButtonContainer

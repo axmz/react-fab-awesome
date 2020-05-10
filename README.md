@@ -18,8 +18,6 @@
 - [x] closeMenu when large button is clicked  
 - [x] ontouch shortpress happens twice  
 - [x] clicking overlay opens menu  
-- [ ]   
-
-# learned
-
-[collapsing margins](https://www.youtube.com/watch?v=uDK2iLQMZlg)
+- [ ] overlay on close is not animated  
+- [ ] check if overlay is not fixed on scroll  
+- [ ] make context defaults, remove partial to avoid undefined  

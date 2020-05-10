@@ -2,10 +2,11 @@ import React, { useContext, useRef, useEffect } from "react";
 import "./Styles.scss";
 import { Context } from "../../context/Context";
 
-interface Props {}
+interface Props {
+  text: string;
+}
 
-const Logger: React.FC<Props> = () => {
-  const { log } = useContext(Context);
+const Logger: React.FC<Props> = ({ text }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -13,21 +14,11 @@ const Logger: React.FC<Props> = () => {
       const height = ref.current.scrollHeight;
       ref.current.scrollTo({ top: height, left: 0, behavior: "smooth" });
     }
-  }, [log]);
-
-  let parsed = "";
-  if (log) {
-    parsed = log.reduce((acc, cur, i) => {
-      if (i === 0) {
-        return acc + "> " + cur;
-      }
-      return acc + "\n> " + cur;
-    }, "");
-  }
+  }, [text]);
 
   return (
     <div className={"logger__container"}>
-      <textarea ref={ref} defaultValue={parsed} rows={10}></textarea>
+      <textarea ref={ref} defaultValue={text} rows={10}></textarea>
     </div>
   );
 };

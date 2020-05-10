@@ -1,25 +1,16 @@
 import React, { useRef, useEffect, useContext, ReactNode } from "react";
 import { to, animated, useSpring, SpringHandle } from "react-spring";
 import styled from "styled-components";
-import "./Styles.scss";
-
+import SmallButton from "./SmallButton"
+import "../Styles.scss";
 // Ctx
-import { Context } from "../../context/Context";
+import { Context } from "../../../context/Context";
 
-// Props
 interface Props {
-  children: ReactNode;
+  Icon: any
 }
 
-// styled
-const SB = styled.div`
-  ${({ theme }) => theme.circleMixin("0.6rem", "#589d62")};
-  ${({ theme }) => theme.centeredCircleMixin()};
-  top: -1.1rem;
-`;
-
-// component
-const SmallButton: React.FC<Props> = ({ children, ...otherProps }) => {
+const SmallButtonContainer: React.FC<Props> = ({Icon}) => {
   //////////////////////////////////////// Context
   const ctx = useContext(Context);
   const open = ctx.open!;
@@ -35,10 +26,10 @@ const SmallButton: React.FC<Props> = ({ children, ...otherProps }) => {
   const height = -180;
   const config = { mass: 1, tension: 320, friction: 25 };
 
-  const [{ y, rot}, set] = useSpring(() => ({
+  const [{ y, rot }, set] = useSpring(() => ({
     ref: springRef,
     config,
-    from: { y: 0, rot: 0, color: "red" }
+    from: { y: 0, rot: 0, color: "red" },
   }));
 
   //////////////////////////////////////// open / close
@@ -62,6 +53,10 @@ const SmallButton: React.FC<Props> = ({ children, ...otherProps }) => {
     };
   }, [collectRef, forgetRef, springRef]);
 
+  //////////////////////////////////////// Gestures
+  const style = {
+    transform: to([y, rot], (y, rot) => `translateY(${y}px) rotateX(${rot}deg)`),
+  };
   //////////////////////////////////////// handleClicks
   const handleButtonClick = (message: string) => {
     toggleOpen(!open);
@@ -69,21 +64,12 @@ const SmallButton: React.FC<Props> = ({ children, ...otherProps }) => {
     updateLog("Open: " + !open);
   };
 
-  //////////////////////////////////////// Gestures
-  const style = {
-    transform : to( [y, rot], (y, rot) => `translateY(${y}px) rotateX(${rot}deg)`)
-  };
 
   return (
-    <animated.div style={style} className={"SB"}>
-      <SB
-        onClick={() => handleButtonClick("Small button clicked")}
-        {...otherProps}
-      >
-        {children}
-      </SB>
-    </animated.div>
-  );
-};
+    <SmallButton handleClick={handleButtonClick} style={style}>
+      <Icon className={"button__icon--small"} />
+    </SmallButton>
+  )
+}
 
-export default SmallButton;
+export default SmallButtonContainer

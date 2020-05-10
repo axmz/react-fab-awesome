@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect, useRef } from "react";
-import { Context } from "../context/Context";
+import { Context } from "../../../context/Context";
 
 export default function useLongPress(
   onShortPress: Function = () => {},
