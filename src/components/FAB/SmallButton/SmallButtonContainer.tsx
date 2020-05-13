@@ -3,7 +3,7 @@ import { to, useSpring, SpringHandle } from "react-spring";
 import SmallButton from "./SmallButton"
 // import "../Styles.scss";
 // Ctx
-import { Context } from "../../../context/Context";
+import { Context } from "../../../context/FABContext";
 import { Button } from "../Container/Button";
 
 interface Props {

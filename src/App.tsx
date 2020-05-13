@@ -25,6 +25,7 @@ const H = () => <div>hello!</div>
 
 const App: React.FC = () => {
   //////////////////////////////////////// Context
+  // const {open, checked, toggleOpen, updateLog} = useContext(Context);
   const ctx = useContext(Context);
   const { open, checked } = ctx;
   const toggleOpen = ctx.toggleOpen!;

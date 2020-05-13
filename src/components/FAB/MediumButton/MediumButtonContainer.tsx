@@ -3,7 +3,7 @@ import { useTransition, SpringHandle } from "react-spring";
 import MediumButton from "./MediumButton";
 
 // Ctx
-import { Context } from "../../../context/Context";
+import { Context } from "../../../context/FABContext";
 import { Button } from "../Container/Button";
 
 interface Props {

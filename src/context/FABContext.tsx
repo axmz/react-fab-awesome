@@ -2,7 +2,7 @@ import React, { useCallback, useState, createContext } from "react";
 import { ReactNode, Dispatch, SetStateAction } from "react";
 import { SpringHandle, SpringValue } from "react-spring";
 
-export interface ContextType {
+export type ContextType = {
   Y: SpringValue<number>;
   setY: (Y: SpringValue<number>) => void;
   collectedRefs: React.RefObject<SpringHandle>[];
@@ -15,7 +15,7 @@ interface Props {
   children: ReactNode;
 }
 
-export const Context = createContext<ContextType>({});
+export const Context = createContext<Partial<ContextType>>({ })
 
 const Provider: React.FC<Props> = ({ children }) => {
   const [Y, setY] = useState<SpringValue<number>>();
@@ -52,14 +52,14 @@ const Provider: React.FC<Props> = ({ children }) => {
     [setCollectedRefs]
   );
 
-  const store = {
+  const store= {
     Y,
     setY,
     collectRef,
     forgetRef,
     collectedRefs,
   };
-  
+
   return <Context.Provider value={store}>{children}</Context.Provider>;
 };
 

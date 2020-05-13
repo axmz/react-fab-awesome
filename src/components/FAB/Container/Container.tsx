@@ -10,7 +10,7 @@ import SmallButton from "../SmallButton/SmallButtonContainer";
 import MediumButton from "../MediumButton/MediumButtonContainer";
 import LargeButton from "../LargeButton/LargeButtonContainer";
 // Context
-import { Context } from "../../../context/Context";
+import { Context, ContextType } from "../../../context/FABContext";
 // Spring
 import { useChain } from "react-spring";
 import { Button } from "./Button";
@@ -22,31 +22,43 @@ const C = styled.div<any>`
   z-index: 20;
 `;
 
-
 interface Props {
-  open: boolean,
-  left?: boolean,
-  mediumButtons: Button[],
-  smallButton: any,
-  largeButton: any,
+  open: boolean;
+  left?: boolean;
+  mediumButtons: Button[];
+  smallButton: any;
+  largeButton: any;
 }
 
-const Container: React.FC<Props> = ({open, left, smallButton, largeButton, mediumButtons}) => {
+const Container: React.FC<Props> = ({
+  open,
+  left,
+  smallButton,
+  largeButton,
+  mediumButtons,
+}) => {
   //////////////////////////////////////// Context
   const ctx = useContext(Context);
   const collectedRefs = ctx.collectedRefs!;
 
   //////////////////////////////////////// CHAIN
   const springStart = 0;
-  const transitionDelay = 0.150;
+  const transitionDelay = 0.15;
 
-  useChain(open ? collectedRefs : collectedRefs.slice().reverse(), [springStart, transitionDelay]);
+  useChain(open ? collectedRefs : collectedRefs.slice().reverse(), [
+    springStart,
+    transitionDelay,
+  ]);
 
   return (
     <ThemeProvider theme={theme}>
       <Overlay />
       <C left={left}>
-        <SmallButton open={open} smallButton={smallButton} buttonsCount={mediumButtons.length} />
+        <SmallButton
+          open={open}
+          smallButton={smallButton}
+          buttonsCount={mediumButtons.length}
+        />
         <MediumButton open={open} buttons={mediumButtons} />
         <LargeButton largeButton={largeButton} />
       </C>

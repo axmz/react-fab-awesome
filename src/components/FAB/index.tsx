@@ -5,6 +5,7 @@ import Emoji from "./Emoji/Emoji";
 import { ReactComponent as Arrow } from "../../assets/arrow.svg";
 import { ReactComponent as Plus } from "../../assets/plus.svg";
 import { Button } from "./Container/Button";
+import Provider from "../../context/FABContext";
 
 //-------------------------------------- Buttons
 const defaultLargeButton: Button = {
@@ -53,13 +54,15 @@ const FAB: React.FC<Props> = function ({
   largeButton = defaultLargeButton,
 }) {
   return (
-    <Container
-      open={open}
-      left={left}
-      mediumButtons={mediumButtons}
-      smallButton={smallButton}
-      largeButton={largeButton}
-    />
+    <Provider>
+      <Container
+        open={open}
+        left={left}
+        mediumButtons={mediumButtons}
+        smallButton={smallButton}
+        largeButton={largeButton}
+      />
+    </Provider>
   );
 };
 
