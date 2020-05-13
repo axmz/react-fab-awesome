@@ -11,11 +11,9 @@ import MediumButton from "../MediumButton/MediumButtonContainer";
 import LargeButton from "../LargeButton/LargeButtonContainer";
 // Context
 import { Context } from "../../../context/Context";
-// SVG
-import { ReactComponent as Arrow } from "../../../assets/arrow.svg";
-import { ReactComponent as Plus } from "../../../assets/plus.svg";
 // Spring
 import { useChain } from "react-spring";
+import { Button } from "./Button";
 
 const C = styled.div<any>`
   position: absolute;
@@ -24,26 +22,33 @@ const C = styled.div<any>`
   z-index: 20;
 `;
 
-const Container = () => {
+
+interface Props {
+  open: boolean,
+  left?: boolean,
+  mediumButtons: Button[],
+  smallButton: any,
+  largeButton: any,
+}
+
+const Container: React.FC<Props> = ({open, left, smallButton, largeButton, mediumButtons}) => {
   //////////////////////////////////////// Context
-  const { checked } = useContext(Context);
   const ctx = useContext(Context);
-  const { open } = ctx;
   const collectedRefs = ctx.collectedRefs!;
 
   //////////////////////////////////////// CHAIN
   const springStart = 0;
-  const transitionDelay = 0.2;
+  const transitionDelay = 0.150;
 
   useChain(open ? collectedRefs : collectedRefs.slice().reverse(), [springStart, transitionDelay]);
 
   return (
     <ThemeProvider theme={theme}>
       <Overlay />
-      <C left={checked}>
-        <SmallButton Icon={Arrow} />
-        <MediumButton />
-        <LargeButton Icon={Plus} />
+      <C left={left}>
+        <SmallButton open={open} smallButton={smallButton} buttonsCount={mediumButtons.length} />
+        <MediumButton open={open} buttons={mediumButtons} />
+        <LargeButton largeButton={largeButton} />
       </C>
     </ThemeProvider>
   );

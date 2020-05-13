@@ -1,21 +1,21 @@
-import React, { useRef, useEffect, useContext, ReactNode } from "react";
-import { to, animated, useSpring, SpringHandle } from "react-spring";
-import styled from "styled-components";
+import React, { useRef, useEffect, useContext } from "react";
+import { to, useSpring, SpringHandle } from "react-spring";
 import SmallButton from "./SmallButton"
-import "../Styles.scss";
+// import "../Styles.scss";
 // Ctx
 import { Context } from "../../../context/Context";
+import { Button } from "../Container/Button";
 
 interface Props {
-  Icon: any
+  smallButton: Button,
+  buttonsCount: number,
+  open: boolean,
 }
 
-const SmallButtonContainer: React.FC<Props> = ({Icon}) => {
+const SmallButtonContainer: React.FC<Props> = ({open, smallButton, buttonsCount}) => {
+  const {icon, styles, cb} = smallButton
   //////////////////////////////////////// Context
   const ctx = useContext(Context);
-  const open = ctx.open!;
-  const toggleOpen = ctx.toggleOpen!;
-  const updateLog = ctx.updateLog!;
   const collectRef = ctx.collectRef!;
   const forgetRef = ctx.forgetRef!;
 
@@ -23,7 +23,7 @@ const SmallButtonContainer: React.FC<Props> = ({Icon}) => {
   const springRef = useRef() as React.RefObject<SpringHandle>;
 
   //////////////////////////////////////// Spring
-  const height = -180;
+  const height = -4 * buttonsCount // rem
   const config = { mass: 1, tension: 320, friction: 25 };
 
   const [{ y, rot }, set] = useSpring(() => ({
@@ -55,19 +55,12 @@ const SmallButtonContainer: React.FC<Props> = ({Icon}) => {
 
   //////////////////////////////////////// Gestures
   const style = {
-    transform: to([y, rot], (y, rot) => `translateY(${y}px) rotateX(${rot}deg)`),
+    transform: to([y, rot], (y, rot) => `translateY(${y}rem) rotateX(${rot}deg)`),
   };
-  //////////////////////////////////////// handleClicks
-  const handleButtonClick = (message: string) => {
-    toggleOpen(!open);
-    updateLog(message);
-    updateLog("Open: " + !open);
-  };
-
 
   return (
-    <SmallButton handleClick={handleButtonClick} style={style}>
-      <Icon className={"button__icon--small"} />
+    <SmallButton handleClick={cb} style={{ ...style, ...styles }}>
+      <smallButton.icon/>
     </SmallButton>
   )
 }

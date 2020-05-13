@@ -1,18 +1,19 @@
-import React, { useRef, useEffect, useContext, ReactNode } from "react";
-import { useTransition, animated, SpringHandle } from "react-spring";
-import styled from "styled-components";
-import "../Styles.scss";
-import MediumButton from "./MediumButton"
+import React, { useRef, useEffect, useContext } from "react";
+import { useTransition, SpringHandle } from "react-spring";
+import MediumButton from "./MediumButton";
 
 // Ctx
 import { Context } from "../../../context/Context";
+import { Button } from "../Container/Button";
 
-const MediumButtonContainer = () => {
+interface Props {
+  buttons: Button[];
+  open: boolean;
+}
+
+const MediumButtonContainer: React.FC<Props> = ({open, buttons}) => {
   //////////////////////////////////////// Context
   const ctx = useContext(Context);
-  const { open } = ctx;
-  const toggleOpen = ctx.toggleOpen!;
-  const updateLog = ctx.updateLog!;
   const collectRef = ctx.collectRef!;
   const forgetRef = ctx.forgetRef!;
   //////////////////////////////////////// Refs
@@ -26,52 +27,52 @@ const MediumButtonContainer = () => {
     };
   }, [collectRef, forgetRef, transitionRef]);
 
+  const n = buttons.length // number of medium buttons
+  const d = 4 // distance of small button from large button for each medium button when opened
+  const h = 3 + n * d // 3rem is the space btw large button (middle) and small button when closed
+  const c = h / (n + 1) // centered position for middle button
   //////////////////////////////////////// Transition
-  const items = [1, 2, 3];
-  const transitions = useTransition(open ? items : [], (item: any) => item, {
+  const transitions = useTransition(open ? buttons : [], (button: any) => button.id, {
     ref: transitionRef,
-    trail: 100,
+    trail: 50,
     config: { mass: 1, tension: 320, friction: 19 },
     unique: true,
     from: {
       opacity: 0,
-      transform: `translate3d(${0}px, ${-20}px, 0px)`
+      transform: `translate3d(${0}rem, ${-2}, 0rem)`,
     },
-    enter: item => {
+    enter: (button) => {
       return {
         opacity: 1,
-        transform: `translate3d(${0}px, ${20}px, 0px)`,
-        top: `${-10 + 3 * (-1 + item)}rem`
+        transform: `translate3d(${0}rem, ${0}rem, 0rem)`,
+        top: `${-c *(1 + button.id)+1}rem`, // +1 shift all medium buttons down. this depends on the padding of the circle.
       };
     },
-    leave: item => {
-      let mod = item % 2;
+    leave: (button) => {
+      let mod = button.id % 2;
       let nr = -1;
       if (mod) {
         nr = 1;
       }
       return {
-        transform: `translate3d(${nr * 20}px, ${-20}px, 0px)`,
-        opacity: 0
+        transform: `translate3d(${nr * 1.25}rem, ${-2}rem, 0rem)`,
+        opacity: 0,
       };
-    }
+    },
   });
-
-  //////////////////////////////////////// handleClicks
-  const handleButtonClick = (message: string) => {
-    toggleOpen(!open);
-    updateLog(message);
-    updateLog("Open: " + !open);
-  };
-
 
   return (
     <>
-      {transitions.map(({ key, props }) => (
-        <MediumButton key={key} props={props} handleClick={handleButtonClick}/>
+      {transitions.map(({ key, props, item }) => (
+        <MediumButton 
+          Icon={item.icon} 
+          key={key} 
+          style={{...props, ...item.styles}} 
+          handleClick={item.cb} 
+        />
       ))}
     </>
-  )
-}
+  );
+};
 
-export default MediumButtonContainer
+export default MediumButtonContainer;

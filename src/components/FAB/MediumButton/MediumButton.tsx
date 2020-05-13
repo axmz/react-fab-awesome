@@ -1,28 +1,36 @@
-import React, { useRef, useEffect, useContext, ReactNode } from "react";
-import { useTransition, animated, SpringHandle } from "react-spring";
+import React, { ReactNode } from "react";
+import {  animated } from "react-spring";
 import styled from "styled-components";
-import "../Styles.scss";
 
 const MB = styled(animated.div)`
-  ${({ theme }) => theme.circleMixin("1rem", "#c6c1bb")};
+  ${({ theme }) => theme.circleMixin("1rem", "antiquewhite")};
   ${({ theme }) => theme.centeredCircleMixin()};
+  top: -1rem;
 `;
 
-// Props
+const Centered = styled.div`
+  ${({ theme }) => theme.centeredIconMixin()};
+`;
+
 interface Props {
   children?: ReactNode;
   key: any;
-  props: {};
-  handleClick: (s: string) => void;
+  style: {};
+  Icon: any; 
+  handleClick: (e: any) => void;
 }
 
-// component
-const MediumButton: React.FC<Props> = ({ key, props, handleClick, ...otherProps }) => {
-  return <MB 
-  className={"MB"} 
-  key={key} 
-  style={props} 
-  onClick={() => handleClick("Medium button clicked")} />;
+const MediumButton: React.FC<Props> = ({Icon, style, handleClick, ...otherProps }) => {
+  return (
+    <MB 
+      style={style} 
+      onClick={(e: any) => handleClick(e)} 
+    >
+      <Centered>
+        <Icon/>
+      </Centered>
+    </MB>
+  );
 };
 
 export default MediumButton;

@@ -2,12 +2,12 @@ import React, { useContext } from 'react'
 import LargeButton from './LargeButton'
 import { Context } from '../../../context/Context';
 import useLongPress from './longpress';
-import { ReactComponent as Plus } from "../../../assets/plus.svg";
+import { Button } from '../Container/Button';
 
 interface Props {
-  Icon?: any
+  largeButton: Button
 }
-const LargeButtonContainer: React.FC<Props> = ({Icon=Plus}) => {
+const LargeButtonContainer: React.FC<Props> = ({largeButton}) => {
   const ctx = useContext(Context);
   const updateLog = ctx.updateLog!;
 
@@ -18,8 +18,8 @@ const LargeButtonContainer: React.FC<Props> = ({Icon=Plus}) => {
   );
 
   return (
-    <LargeButton {...bind}>
-      <Icon/>
+    <LargeButton {...largeButton} {...bind}>
+      <largeButton.icon/>
     </LargeButton>
   )
 }

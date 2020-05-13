@@ -1,37 +1,37 @@
-import React, { useRef, useEffect, useContext, ReactNode } from "react";
-import { to, animated, useSpring, SpringHandle } from "react-spring";
+import React, { ReactNode } from "react";
+import { animated } from "react-spring";
 import styled from "styled-components";
-import "../Styles.scss";
+// import "../Styles.scss";
 
-// Ctx
-import { Context } from "../../../context/Context";
-
-// styled
 const SB = styled(animated.div)`
-  ${({ theme }) => theme.circleMixin("0.6rem", "#589d62")};
+  ${({ theme }) => theme.circleMixin("1rem", "#589d62")};
   ${({ theme }) => theme.centeredCircleMixin()};
-  top: -1.1rem;
+  top: -2rem;
 `;
 
-// Props
+const Centered = styled.div`
+  ${({ theme }) => theme.centeredIconMixin()};
+`;
+
 interface Props {
   children: ReactNode;
-  handleClick: (s: string) => void;
-  style: {}
+  handleClick: (e: any) => void;
+  style: {};
 }
 
-// component
-const SmallButton: React.FC<Props> = ({handleClick, style, children, ...otherProps }) => {
-
-
+const SmallButton: React.FC<Props> = ({
+  handleClick,
+  style,
+  children,
+  ...otherProps
+}) => {
   return (
-    <SB 
-      style={style} 
-      className={"SB"} 
-      onClick={() => handleClick("Small button clicked")} 
+    <SB
+      style={style}
+      onClick={(e: any) => handleClick(e)}
       {...otherProps}
     >
-      {children}
+      <Centered>{children}</Centered>
     </SB>
   );
 };
