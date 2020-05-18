@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React  from "react";
 import "./styles.scss";
 import styled from "styled-components";
 

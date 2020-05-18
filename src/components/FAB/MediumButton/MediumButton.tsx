@@ -1,6 +1,7 @@
-import React, { ReactNode } from "react";
+import React  from "react";
 import {  animated } from "react-spring";
 import styled from "styled-components";
+import { Clickable } from "../Container/Button";
 
 const MB = styled(animated.div)`
   ${({ theme }) => theme.circleMixin("1rem", "antiquewhite")};
@@ -13,21 +14,18 @@ const Centered = styled.div`
 `;
 
 interface Props {
-  children?: ReactNode;
-  key: any;
-  style: {};
-  Icon: any; 
-  handleClick: (e: any) => void;
+  buttonProps: Clickable;
+  style: {}
 }
 
-const MediumButton: React.FC<Props> = ({Icon, style, handleClick, ...otherProps }) => {
+const MediumButton: React.FC<Props> = ({style, buttonProps}) => {
   return (
     <MB 
-      style={style} 
-      onClick={(e: any) => handleClick(e)} 
+      style={{...style, ...buttonProps.styles}}
+      onClick={(e: any) => buttonProps.cb(e)} 
     >
       <Centered>
-        <Icon/>
+        <buttonProps.icon/>
       </Centered>
     </MB>
   );

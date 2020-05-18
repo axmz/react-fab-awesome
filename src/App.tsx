@@ -15,17 +15,16 @@ import Emoji from "./components/FAB/Emoji/Emoji";
 import { ReactComponent as Music } from "./assets/music.svg";
 import { ReactComponent as Arrow } from "./assets/arrow.svg";
 import { ReactComponent as Plus } from "./assets/plus.svg";
-import { Button } from "./components/FAB/Container/Button";
+import { Clickable } from "./components/FAB/Container/Button";
 
 // medium buttons
-const Orange = () => <Emoji label={"fruit"} symbol={"🍊"}></Emoji>
+// const Orange = () => <Emoji label={"fruit"} symbol={"🍊"}></Emoji>
+// const Banana = () => <Emoji label={"fruit"} symbol={"🍌"}></Emoji>
 const Bacon = () =>  <Emoji label={"fruit"} symbol={"🥓"}></Emoji>
-const Banana = () => <Emoji label={"fruit"} symbol={"🍌"}></Emoji>
 const H = () => <div>hello!</div>
 
 const App: React.FC = () => {
   //////////////////////////////////////// Context
-  // const {open, checked, toggleOpen, updateLog} = useContext(Context);
   const ctx = useContext(Context);
   const { open, checked } = ctx;
   const toggleOpen = ctx.toggleOpen!;
@@ -38,10 +37,13 @@ const App: React.FC = () => {
     updateLog("Open: " + !open);
   };
 
-  const largeButton: Button = {
+  const largeButton: Clickable = {
     id: 0,
     icon: () => <Plus fill={"white"} width={"30%"} height={"30%"} />,
-    cb: () => {},
+    cb: () => {
+      updateLog("Large button clicked")
+      updateLog("Open: " + !open);
+    },
     styles: {},
   };
 
@@ -50,7 +52,7 @@ const App: React.FC = () => {
       id: 0,
       icon: H,
       cb: () => handleButtonClick("Medium button clicked"),
-      styles: { backgroundColor: "transparent", boxShadow: "none" },
+      styles: { backgroundColor: "transparent", boxShadow: "none", border: "1px solid white" },
     }, // Text
     {
       id: 1,
@@ -66,11 +68,18 @@ const App: React.FC = () => {
     }, // SVG
   ];
 
-  const smallButton: Button = {
+  const smallButton: Clickable = {
     id: 0,
     icon: () => <Arrow fill={"white"} width={".6rem"} height={".6rem"} />,
     cb: () => handleButtonClick("Small button clicked"),
+    styles: {}
   };
+
+  const overlay: Clickable = {
+    id: 0,
+    cb: () => handleButtonClick("Overlay clicked"),
+    styles: {}
+  }
 
   return (
     <div className="App">
@@ -80,6 +89,7 @@ const App: React.FC = () => {
         <FAB
           open={open ? true : false}
           left={checked}
+          overlay={overlay}
           mediumButtons={mediumButtons}
           smallButton={smallButton}
           largeButton={largeButton}

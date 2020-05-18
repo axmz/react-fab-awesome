@@ -4,44 +4,55 @@ import "./Styles.scss";
 import Emoji from "./Emoji/Emoji";
 import { ReactComponent as Arrow } from "../../assets/arrow.svg";
 import { ReactComponent as Plus } from "../../assets/plus.svg";
-import { Button } from "./Container/Button";
-import Provider from "../../context/FABContext";
+import { Clickable } from "./Container/Button";
 
 //-------------------------------------- Buttons
-const defaultLargeButton: Button = {
+const defaultLargeButton: Clickable = {
   id: 0,
   icon: () => <Plus fill={"white"} width={"30%"} height={"30%"} />,
-  cb: () => {},
+  cb: () => { },
+  styles: {}
 };
 
-const defaultMediumButtons: Button[] = [
+const defaultMediumButtons: Clickable[] = [
   {
     id: 0,
     icon: () => <Emoji label={"fruit"} symbol={"🍊"}></Emoji>,
     cb: (e: any) => console.log(e, "clicked"),
+    styles: {}
   },
   {
     id: 1,
     icon: () => <Emoji label={"fruit"} symbol={"🥓"}></Emoji>,
     cb: (e: any) => console.log(e, "clicked"),
+    styles: {}
   },
   {
     id: 2,
     icon: () => <Emoji label={"fruit"} symbol={"🍌"}></Emoji>,
     cb: (e: any) => console.log(e, "clicked"),
+    styles: {}
   },
 ];
 
-const defaultSmallButton: Button = {
+const defaultSmallButton: Clickable = {
   id: 0,
   icon: () => <Arrow fill={"white"} width={".6rem"} height={".6rem"} />,
   cb: () => {},
+  styles: {}
 };
 
+const defaultOverlay: Clickable = {
+  id: 0,
+  cb: () => {},
+  styles: {}
+}
+
 interface Props {
-  mediumButtons?: Button[];
-  smallButton?: Button;
-  largeButton?: Button;
+  mediumButtons?: Clickable[];
+  smallButton?: Clickable;
+  largeButton?: Clickable;
+  overlay?: Clickable;
   left?: boolean;
   open: boolean;
 }
@@ -52,17 +63,17 @@ const FAB: React.FC<Props> = function ({
   mediumButtons = defaultMediumButtons,
   smallButton = defaultSmallButton,
   largeButton = defaultLargeButton,
+  overlay = defaultOverlay,
 }) {
   return (
-    <Provider>
-      <Container
-        open={open}
-        left={left}
-        mediumButtons={mediumButtons}
-        smallButton={smallButton}
-        largeButton={largeButton}
-      />
-    </Provider>
+    <Container
+      open={open}
+      left={left}
+      mediumButtons={mediumButtons}
+      smallButton={smallButton}
+      largeButton={largeButton}
+      overlay={overlay}
+    />
   );
 };
 

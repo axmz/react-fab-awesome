@@ -4,14 +4,12 @@
 - [x] long press feature https://stackoverflow.com/questions/48048957/react-long-press-event
 - [x] overlay
 - [x] modularity / for left handed
-- [ ] modularity / spacing
+- [x] modularity / spacing
 - [ ] swipe to close / open
 - [ ] real device testing, spacing, position
-- [ ] longpress should also cancel on scroll, swipe...
-- [ ] left / above?
-
-# to fix
-
+- [x] longpress should also cancel on scroll, swipe...
+- [x] left / above?
+- [ ] animate large button click
 - [x] longpress trigers normal click too
 - [x] scrolldown log when new item added
 - [x] closeMenu when large button is clicked
@@ -19,6 +17,7 @@
 - [x] clicking overlay opens menu
 - [ ] overlay on close is not animated
 - [ ] check if overlay is not fixed on scroll
-- [ ] make context defaults, remove partial to avoid undefined
+- [x] make context defaults, remove partial to avoid undefined
 - [ ] update spring
-- [ ] add empty values for SpringValue
+- [x] add empty values for SpringValue
+- [ ] bring overlay spring to container

@@ -5,8 +5,12 @@ export const theme = {
     background-color: ${bc};
     box-shadow: 0px 1px 4px 1px rgba(0,0,0,0.2);
     overflow: hidden;
-  touch-action: none;
-  user-select: none;
+    touch-action: none;
+    user-select: none;
+    &:active {
+        filter: brightness(120%);
+        transform: scale(0.98);
+    }
     `,
   centeredCircleMixin: () => `
     position: absolute;

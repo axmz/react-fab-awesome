@@ -1,6 +1,13 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import { Context } from "../../../context/Context";
 
+// bind this to the button
+//   const bind = useLongPress(
+//     // () => updateLog("Short press"),
+//     // () => updateLog("Long press"),
+//     // 1000
+//   );
+
 export default function useLongPress(
   onShortPress: Function = () => {},
   onLongPress: Function = () => {},

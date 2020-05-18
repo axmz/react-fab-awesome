@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { animated, useSpring } from "react-spring";
+import { animated } from "react-spring";
+import { Clickable } from "../Container/Button"
 
 const O = styled(animated.div)`
   position: absolute;
@@ -12,20 +13,15 @@ const O = styled(animated.div)`
 `;
 
 interface Props {
-  isOpen: boolean;
-  handleClick: () => void
+  overlayProps: Clickable;
+  style: {};
 }
 
-const Overlay: React.FC<Props> = ({handleClick, isOpen = false }) => {
-  const { opacity } = useSpring({ opacity: isOpen ? 1 : 0, from: { opacity: 0 } });
-
-  let styles = {
-    zIndex: isOpen ? 1 : -1,
-    opacity: opacity,
-    touchAction: isOpen ? "auto" : "none",
-  };
-
-  return <O onClick={handleClick} style={styles}></O>;
+const Overlay: React.FC<Props> = ({ overlayProps, style }) => {
+  return (<O
+    onClick={(e: any) => overlayProps.cb(e)}
+    style={{ ...style, ...overlayProps.styles }}
+  ></O>);
 };
 
 export default Overlay;

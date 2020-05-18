@@ -1,6 +1,5 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import "./Styles.scss";
-import { Context } from "../../context/Context";
 
 interface Props {
   text: string;
