@@ -18,12 +18,13 @@ interface Props {
   buttonProps: Clickable;
 }
 
-const SmallButton: React.FC<Props> = ({
+const SmallButton: React.FC<Props> = React.forwardRef(({
   buttonProps,
   style,
-}) => {
+}, ref) => {
   return (
     <SB
+      ref={ref}
       style={{ ...style, ...buttonProps.styles }}
       onClick={(e: any) => buttonProps.cb(e)}
     >
@@ -32,6 +33,6 @@ const SmallButton: React.FC<Props> = ({
       </Centered>
     </SB>
   );
-};
+});
 
 export default SmallButton;

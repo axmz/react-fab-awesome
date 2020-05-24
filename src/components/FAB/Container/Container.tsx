@@ -10,8 +10,9 @@ import SmallButton from "../SmallButton/SmallButton";
 import MediumButton from "../MediumButton/MediumButton";
 import LargeButton from "../LargeButton/LargeButton";
 // Spring
-import { useChain, SpringHandle, useSpring, to, useTransition } from "react-spring";
+import { useChain, SpringHandle, useSpring, to, useTransition, config as conf } from "react-spring";
 import { Clickable } from "./Button";
+import { useDrag } from "react-use-gesture"
 
 const C = styled.div<any>`
   position: absolute;
@@ -26,7 +27,7 @@ interface Props {
   mediumButtons: Clickable[];
   smallButton: Clickable;
   largeButton: Clickable;
-  overlay:Clickable;
+  overlay: Clickable;
 }
 
 const Container: React.FC<Props> = ({
@@ -38,7 +39,7 @@ const Container: React.FC<Props> = ({
   overlay,
 }) => {
   //                                       OVERLAY SPRING
-  const { opacity } = useSpring({ opacity: open ? 1 : 0, from: { opacity: 0 }  });
+  const { opacity } = useSpring({ opacity: open ? 1 : 0, from: { opacity: 0 } });
 
   const overlayStyle = {
     zIndex: open ? 1 : -1,
@@ -49,6 +50,8 @@ const Container: React.FC<Props> = ({
   //                                       SMALL BUTTON SPRING
   //                                       Ref
   const springRef = useRef() as React.RefObject<SpringHandle>;
+  const draggingRef = useRef(false)
+  const sbRef = useRef(null)
 
   //                                       Spring
   const buttonsCount = mediumButtons.length;
@@ -61,18 +64,43 @@ const Container: React.FC<Props> = ({
     from: { y: 0, rot: 0, color: "red" }, // why red color?
   }));
 
+
   //                                       useEffect
+  const openMenu = () => {
+    set({ y: height, rot: 180 });
+  };
+
+  const closeMenu = (velocity = 0) => {
+    set({ y: 0, rot: 0, config: { ...conf.stiff, velocity } });
+  };
+
   useEffect(() => {
-    const openMenu = () => {
-      set({ y: height, rot: 180 });
-    };
-
-    const closeMenu = () => {
-      set({ y: 0, rot: 0 });
-    };
-
     open ? openMenu() : closeMenu();
-  }, [open, height, set]);
+  }, [open, height, set, openMenu, closeMenu]);
+
+  //                                       useDrag
+  const bind = useDrag(
+    ({ first, last, vxvy: [, vy], movement: [, my], cancel }) => {
+      console.log('useDrag')
+      if (first) draggingRef.current = true
+      // if this is not the first or last frame, it's a moving frame
+      // then it means the user is dragging
+      else if (last) setTimeout(() => (draggingRef.current = false), 0)
+
+      // if the user drags up passed a threshold, then we cancel
+      // the drag so that the sheet resets to its open position
+      if (my < -70) { if (cancel) cancel() }
+
+      // when the user releases the sheet, we check whether it passed
+      // the threshold for it to close, or if we reset it to its open positino
+      if (last) my > height * 0.75 || vy > 0.5 ? closeMenu(vy) : openMenu()
+      // when the user keeps dragging, we just move the sheet according to
+      // the cursor position
+      else set({ y: my, immediate: false })
+    },
+    { initial: () => [0, y.getValue()], filterTaps: true, bounds: { top: 0 }, rubberband: true, domTarget: sbRef }
+  )
+
 
   //                                       Style
   const smallButtonStyle = {
@@ -138,6 +166,8 @@ const Container: React.FC<Props> = ({
         left={left}
       >
         <SmallButton
+          {...bind()}
+          ref={sbRef}
           buttonProps={smallButton}
           style={smallButtonStyle}
         />
