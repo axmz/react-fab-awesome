@@ -10,18 +10,19 @@ import Switch from "./components/Switch/SwitchContainer";
 // Context
 import { Context } from "./context/Context";
 
-// SVG
+// SVG / PNG / Emoji
+import doge from './assets/doge.png'
+import thinking from './assets/thinking.png'
 import Emoji from "./components/FAB/Emoji/Emoji";
-import { ReactComponent as Music } from "./assets/music.svg";
 import { ReactComponent as Arrow } from "./assets/arrow.svg";
 import { ReactComponent as Plus } from "./assets/plus.svg";
+//
 import { Clickable } from "./components/FAB/Container/Button";
 
 // medium buttons
-// const Orange = () => <Emoji label={"fruit"} symbol={"🍊"}></Emoji>
-// const Banana = () => <Emoji label={"fruit"} symbol={"🍌"}></Emoji>
+const Pretzel = () => <Emoji label={"fruit"} symbol={"🥨"}></Emoji>
+const Pineapple = () => <Emoji label={"fruit"} symbol={"🍍"}></Emoji>
 const Bacon = () =>  <Emoji label={"fruit"} symbol={"🥓"}></Emoji>
-const H = () => <div>hello!</div>
 
 const App: React.FC = () => {
   //////////////////////////////////////// Context
@@ -39,40 +40,42 @@ const App: React.FC = () => {
 
   const largeButton: Clickable = {
     id: 0,
+    // icon: () => <img src={doge} width={"95%"}/>,
     icon: () => <Plus fill={"white"} width={"30%"} height={"30%"} />,
     cb: () => {
       updateLog("Large button clicked")
       updateLog("Open: " + !open);
     },
-    styles: {},
+    styles: {backgroundColor: "yellowgreen"},
   };
 
   const mediumButtons = [
     {
       id: 0,
-      icon: H,
+      icon: Pretzel,
       cb: () => handleButtonClick("Medium button clicked"),
-      styles: { backgroundColor: "transparent", boxShadow: "none", border: "1px solid white" },
+      styles: {fontSize: "x-large"},
     }, // Text
     {
       id: 1,
       icon: Bacon,
       cb: () => handleButtonClick("Medium button clicked"),
-      styles: { backgroundColor: "transparent", boxShadow: "none" },
+      styles: {fontSize: "x-large"},
     }, // Emoji
     {
       id: 2,
-      icon: () => <Music width={"50%"} height={"50%"} />,
+      icon: Pineapple,
       cb: () => handleButtonClick("Medium button clicked"),
-      styles: { backgroundColor: "yellow" },
+      styles: {fontSize: "x-large"},
     }, // SVG
   ];
 
   const smallButton: Clickable = {
     id: 0,
+    // icon: () => <img src={thinking} width={"85%"}/>,
     icon: () => <Arrow fill={"white"} width={".6rem"} height={".6rem"} />,
     cb: () => handleButtonClick("Small button clicked"),
-    styles: {}
+    styles: {backgroundColor: "tomato"},
   };
 
   const overlay: Clickable = {
@@ -88,7 +91,7 @@ const App: React.FC = () => {
         <Logger />
         <FAB
           open={open ? true : false}
-          left={checked}
+          left={!checked}
           overlay={overlay}
           mediumButtons={mediumButtons}
           smallButton={smallButton}
