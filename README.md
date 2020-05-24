@@ -1,5 +1,5 @@
 # What
-Floating action button for thumb-only apps
+Floating action button for [thumb-only](http://axmz.github.io/react-fab-awesome) navigation
 
 # Why
 Because other fabs are not so cool

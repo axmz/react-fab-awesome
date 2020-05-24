@@ -7,10 +7,6 @@
     "gh-pages": "^2.2.0"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/jest": "^24.0.25",
     "@types/node": "^12.12.24",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
@@ -20,7 +16,6 @@
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
     "react-spring": "^9.0.0-beta.34",
-    "react-use-gesture": "^7.0.0-beta.11",
     "styled-components": "^5.0.0",
     "typescript": "^3.7.4"
   },
@@ -29,8 +24,6 @@
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
