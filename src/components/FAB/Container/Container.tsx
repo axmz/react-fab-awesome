@@ -69,12 +69,12 @@ const Container: React.FC<Props> = ({
     unique: true,
     from: {
       opacity: 0,
-      transform: `translate3d(${0}rem, ${-2}rem, 0rem)`,
+      transform: `translate3d(0rem, ${-2}rem, 0rem)`,
     },
     enter: (button) => {
       return {
         opacity: 1,
-        transform: `translate3d(${0}rem, ${0}rem, 0rem)`,
+        transform: `translate3d(0rem, 0rem, 0rem)`,
         top: `${-mbl * (1 + button.id)}rem`, // +1 shift all medium buttons down. this depends on the padding of the circle.
       };
     },
