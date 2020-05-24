@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/react-fab-awesome/static/css/main.ee3d77c7.chunk.css",
-    "main.js": "/react-fab-awesome/static/js/main.fa4e2d5b.chunk.js",
-    "main.js.map": "/react-fab-awesome/static/js/main.fa4e2d5b.chunk.js.map",
-    "runtime-main.js": "/react-fab-awesome/static/js/runtime-main.3302dfab.js",
-    "runtime-main.js.map": "/react-fab-awesome/static/js/runtime-main.3302dfab.js.map",
-    "static/js/2.16f9a9d2.chunk.js": "/react-fab-awesome/static/js/2.16f9a9d2.chunk.js",
-    "static/js/2.16f9a9d2.chunk.js.map": "/react-fab-awesome/static/js/2.16f9a9d2.chunk.js.map",
+    "main.css": "/react-fab-awesome/static/css/main.13676f50.chunk.css",
+    "main.js": "/react-fab-awesome/static/js/main.fef66be0.chunk.js",
+    "main.js.map": "/react-fab-awesome/static/js/main.fef66be0.chunk.js.map",
+    "runtime-main.js": "/react-fab-awesome/static/js/runtime-main.c02d0a47.js",
+    "runtime-main.js.map": "/react-fab-awesome/static/js/runtime-main.c02d0a47.js.map",
+    "static/js/2.3284ce1a.chunk.js": "/react-fab-awesome/static/js/2.3284ce1a.chunk.js",
+    "static/js/2.3284ce1a.chunk.js.map": "/react-fab-awesome/static/js/2.3284ce1a.chunk.js.map",
     "index.html": "/react-fab-awesome/index.html",
-    "precache-manifest.2333d2917b84eeb93ac0d26c1f4d7baa.js": "/react-fab-awesome/precache-manifest.2333d2917b84eeb93ac0d26c1f4d7baa.js",
+    "precache-manifest.38e98f842bc9eb890309d04b2b3f28e6.js": "/react-fab-awesome/precache-manifest.38e98f842bc9eb890309d04b2b3f28e6.js",
     "service-worker.js": "/react-fab-awesome/service-worker.js",
-    "static/css/main.ee3d77c7.chunk.css.map": "/react-fab-awesome/static/css/main.ee3d77c7.chunk.css.map",
-    "static/js/2.16f9a9d2.chunk.js.LICENSE": "/react-fab-awesome/static/js/2.16f9a9d2.chunk.js.LICENSE",
+    "static/css/main.13676f50.chunk.css.map": "/react-fab-awesome/static/css/main.13676f50.chunk.css.map",
+    "static/js/2.3284ce1a.chunk.js.LICENSE.txt": "/react-fab-awesome/static/js/2.3284ce1a.chunk.js.LICENSE.txt",
     "static/media/arrow.cef0f40c.svg": "/react-fab-awesome/static/media/arrow.cef0f40c.svg",
     "static/media/plus.b518e3dc.svg": "/react-fab-awesome/static/media/plus.b518e3dc.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.3302dfab.js",
-    "static/js/2.16f9a9d2.chunk.js",
-    "static/css/main.ee3d77c7.chunk.css",
-    "static/js/main.fa4e2d5b.chunk.js"
+    "static/js/runtime-main.c02d0a47.js",
+    "static/js/2.3284ce1a.chunk.js",
+    "static/css/main.13676f50.chunk.css",
+    "static/js/main.fef66be0.chunk.js"
   ]
 }
