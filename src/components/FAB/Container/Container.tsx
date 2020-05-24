@@ -3,7 +3,6 @@ import React, { useRef, useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 import theme from "../globalMixins";
-import "../Styles.scss";
 // Components
 import Overlay from "../Overlay/Overlay";
 import SmallButton from "../SmallButton/SmallButton";
@@ -46,48 +45,22 @@ const Container: React.FC<Props> = ({
     touchAction: open ? "auto" : "none",
   };
 
-  //                                       SMALL BUTTON SPRING
-  //                                       Ref
-  const springRef = useRef() as React.RefObject<SpringHandle>;
+  //                                       LARGE BUTTON 
+  //                                       Dimensions
+  const lbmx = 1 // large button x margins
+  const lbmb = 1 // large button margin bottom
+  const m = 2 // commong margin. same as lbm for consistency
 
-  //                                       Spring
-  const buttonsCount = mediumButtons.length;
-  const height = -4 * buttonsCount // rem
-  const config = { mass: 1, tension: 320, friction: 25 };
-
-  const [{ y, rot }, set] = useSpring(() => ({
-    ref: springRef,
-    config,
-    from: { y: 0, rot: 0, color: "red" }, // why red color?
-  }));
-
-  //                                       useEffect
-  useEffect(() => {
-    const openMenu = () => {
-      set({ y: height, rot: 180 });
-    };
-
-    const closeMenu = () => {
-      set({ y: 0, rot: 0 });
-    };
-
-    open ? openMenu() : closeMenu();
-  }, [open, height, set]);
-
-  //                                       Style
-  const smallButtonStyle = {
-    transform: to([y, rot], (y, rot) => `translateY(${y}rem) rotateX(${rot}deg)`),
-  };
-
-
-  //                                       MEDIUM BUTTONS TRANSITION
+  //                                       MEDIUM BUTTONS
   //                                       Refs
   const transitionRef = useRef() as React.RefObject<SpringHandle>;
 
-  const n = mediumButtons.length // number of medium buttons
-  const d = 4 // distance of small button from large button for each medium button when opened
-  const h = 3 + n * d // 3rem is the space btw large button (middle) and small button when closed
-  const c = h / (n + 1) // centered position for middle button
+  //                                       Dimensions
+  const coef = 1.5 // when = 1, it is proportional to 1rem padding for small button and 2rem for large button
+  const n = mediumButtons.length; // count of medium buttons
+  const mbh = 1 * 2 * coef // heigth medium button = padding x 2 x coef
+  const mbl = mbh + m // medium button lift
+
   //                                       Transition
   const transitions = useTransition(open ? mediumButtons : [], (button: any) => button.id, {
     ref: transitionRef,
@@ -102,7 +75,7 @@ const Container: React.FC<Props> = ({
       return {
         opacity: 1,
         transform: `translate3d(${0}rem, ${0}rem, 0rem)`,
-        top: `${-c * (1 + button.id) + 1}rem`, // +1 shift all medium buttons down. this depends on the padding of the circle.
+        top: `${-mbl * (1 + button.id)}rem`, // +1 shift all medium buttons down. this depends on the padding of the circle.
       };
     },
     leave: (button) => {
@@ -117,6 +90,42 @@ const Container: React.FC<Props> = ({
       };
     },
   });
+
+
+  //                                       SMALL BUTTON
+  //                                       Ref
+  const springRef = useRef() as React.RefObject<SpringHandle>;
+
+  //                                       Spring
+  const sbh = 1 * 2 * coef // height of small button = padding 1rem * 2 * coef
+  const initial = sbh + m 
+  const sbl = mbl * (n + 1)
+  const config = { mass: 1, tension: 320, friction: 25 };
+
+  const [{ y, rot }, set] = useSpring(() => ({
+    ref: springRef,
+    config,
+    from: { y: -initial, rot: 0, color: "red" }, // why red color?
+  }));
+
+  //                                       useEffect
+  useEffect(() => {
+    const openMenu = () => {
+      set({ y: -sbl, rot: 180 });
+    };
+
+    const closeMenu = () => {
+      set({ y: -initial, rot: 0 });
+    };
+
+    open ? openMenu() : closeMenu();
+  }, [open, sbl, set]);
+
+  //                                       Style
+  const smallButtonStyle = {
+    transform: to([y, rot], (y, rot) => `translateY(${y}rem) rotateX(${rot}deg)`),
+  };
+
 
 
   //                                       CHAIN
@@ -150,6 +159,8 @@ const Container: React.FC<Props> = ({
         ))}
         <LargeButton
           buttonProps={largeButton}
+          // style={{margin: "0rem"}}
+          style={{margin: `0rem ${lbmx * coef}rem ${lbmb}rem`}}
         />
       </C>
     </ThemeProvider>
