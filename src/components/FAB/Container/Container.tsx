@@ -3,7 +3,6 @@ import React, { useRef, useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 import theme from "../globalMixins";
-import "../Styles.scss";
 // Components
 import Overlay from "../Overlay/Overlay";
 import SmallButton from "../SmallButton/SmallButton";
@@ -47,36 +46,88 @@ const Container: React.FC<Props> = ({
     touchAction: open ? "auto" : "none",
   };
 
-  //                                       SMALL BUTTON SPRING
+  //                                       LARGE BUTTON 
+  //                                       Dimensions
+  const lbmx = 1 // large button x margins
+  const lbmb = 1 // large button margin bottom
+  const m = 2 // commong margin. same as lbm for consistency
+
+  //                                       MEDIUM BUTTONS
+  //                                       Refs
+  const transitionRef = useRef() as React.RefObject<SpringHandle>;
+
+  //                                       Dimensions
+  const coef = 1.5 // when = 1, it is proportional to 1rem padding for small button and 2rem for large button
+  const n = mediumButtons.length; // count of medium buttons
+  const mbh = 1 * 2 * coef // heigth medium button = padding x 2 x coef
+  const mbl = mbh + m // medium button lift
+
+  //                                       Transition
+  const transitions = useTransition(open ? mediumButtons : [], (button: any) => button.id, {
+    ref: transitionRef,
+    trail: 50,
+    config: { mass: 1, tension: 320, friction: 19 },
+    unique: true,
+    from: {
+      opacity: 0,
+      transform: `translate3d(${0}rem, ${-2}rem, 0rem)`,
+    },
+    enter: (button) => {
+      return {
+        opacity: 1,
+        transform: `translate3d(${0}rem, ${0}rem, 0rem)`,
+        top: `${-mbl * (1 + button.id)}rem`, // +1 shift all medium buttons down. this depends on the padding of the circle.
+      };
+    },
+    leave: (button) => {
+      let mod = button.id % 2;
+      let nr = -1;
+      if (mod) {
+        nr = 1;
+      }
+      return {
+        transform: `translate3d(${nr * 1.25}rem, ${-2}rem, 0rem)`,
+        opacity: 0,
+      };
+    },
+  });
+
+
+  //                                       SMALL BUTTON
   //                                       Ref
   const springRef = useRef() as React.RefObject<SpringHandle>;
   const draggingRef = useRef(false)
   const sbRef = useRef(null)
 
   //                                       Spring
-  const buttonsCount = mediumButtons.length;
-  const height = -4 * buttonsCount // rem
+  const sbh = 1 * 2 * coef // height of small button = padding 1rem * 2 * coef
+  const initial = sbh + m 
+  const sbl = mbl * (n + 1)
   const config = { mass: 1, tension: 320, friction: 25 };
 
   const [{ y, rot }, set] = useSpring(() => ({
     ref: springRef,
     config,
-    from: { y: 0, rot: 0, color: "red" }, // why red color?
+    from: { y: -initial, rot: 0, color: "red" }, // why red color?
   }));
 
-
   //                                       useEffect
-  const openMenu = () => {
-    set({ y: height, rot: 180 });
-  };
-
-  const closeMenu = (velocity = 0) => {
-    set({ y: 0, rot: 0, config: { ...conf.stiff, velocity } });
-  };
-
   useEffect(() => {
+    const openMenu = () => {
+      set({ y: -sbl, rot: 180 });
+    };
+
+    const closeMenu = () => {
+      set({ y: -initial, rot: 0 });
+    };
+
     open ? openMenu() : closeMenu();
-  }, [open, height, set, openMenu, closeMenu]);
+  }, [open, sbl, set]);
+
+  //                                       Style
+  const smallButtonStyle = {
+    transform: to([y, rot], (y, rot) => `translateY(${y}rem) rotateX(${rot}deg)`),
+  };
 
   //                                       useDrag
   const bind = useDrag(
@@ -93,58 +144,13 @@ const Container: React.FC<Props> = ({
 
       // when the user releases the sheet, we check whether it passed
       // the threshold for it to close, or if we reset it to its open positino
-      if (last) my > height * 0.75 || vy > 0.5 ? closeMenu(vy) : openMenu()
+      if (last) my > sbl * 0.75 || vy > 0.5 ? closeMenu(vy) : openMenu()
       // when the user keeps dragging, we just move the sheet according to
       // the cursor position
       else set({ y: my, immediate: false })
     },
     { initial: () => [0, y.getValue()], filterTaps: true, bounds: { top: 0 }, rubberband: true, domTarget: sbRef }
   )
-
-
-  //                                       Style
-  const smallButtonStyle = {
-    transform: to([y, rot], (y, rot) => `translateY(${y}rem) rotateX(${rot}deg)`),
-  };
-
-
-  //                                       MEDIUM BUTTONS TRANSITION
-  //                                       Refs
-  const transitionRef = useRef() as React.RefObject<SpringHandle>;
-
-  const n = mediumButtons.length // number of medium buttons
-  const d = 4 // distance of small button from large button for each medium button when opened
-  const h = 3 + n * d // 3rem is the space btw large button (middle) and small button when closed
-  const c = h / (n + 1) // centered position for middle button
-  //                                       Transition
-  const transitions = useTransition(open ? mediumButtons : [], (button: any) => button.id, {
-    ref: transitionRef,
-    trail: 50,
-    config: { mass: 1, tension: 320, friction: 19 },
-    unique: true,
-    from: {
-      opacity: 0,
-      transform: `translate3d(${0}rem, ${-2}rem, 0rem)`,
-    },
-    enter: (button) => {
-      return {
-        opacity: 1,
-        transform: `translate3d(${0}rem, ${0}rem, 0rem)`,
-        top: `${-c * (1 + button.id) + 1}rem`, // +1 shift all medium buttons down. this depends on the padding of the circle.
-      };
-    },
-    leave: (button) => {
-      let mod = button.id % 2;
-      let nr = -1;
-      if (mod) {
-        nr = 1;
-      }
-      return {
-        transform: `translate3d(${nr * 1.25}rem, ${-2}rem, 0rem)`,
-        opacity: 0,
-      };
-    },
-  });
 
 
   //                                       CHAIN
@@ -180,6 +186,8 @@ const Container: React.FC<Props> = ({
         ))}
         <LargeButton
           buttonProps={largeButton}
+          // style={{margin: "0rem"}}
+          style={{margin: `0rem ${lbmx * coef}rem ${lbmb}rem`}}
         />
       </C>
     </ThemeProvider>

@@ -1,6 +1,5 @@
 import React from "react";
 import Container from "./Container/Container";
-import "./Styles.scss";
 import Emoji from "./Emoji/Emoji";
 import { ReactComponent as Arrow } from "../../assets/arrow.svg";
 import { ReactComponent as Plus } from "../../assets/plus.svg";

@@ -6,7 +6,7 @@ import { Clickable } from "../Container/Button";
 const SB = styled(animated.div)`
   ${({ theme }) => theme.circleMixin("1rem", "#589d62")};
   ${({ theme }) => theme.centeredCircleMixin()};
-  top: -2rem;
+  // top: -2rem;
 `;
 
 const Centered = styled.div`
