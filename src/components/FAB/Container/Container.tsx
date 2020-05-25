@@ -69,7 +69,7 @@ const Container: React.FC<Props> = ({
     unique: true,
     from: {
       opacity: 0,
-      transform: `translate3d(0rem, ${-2}rem, 0rem)`,
+      transform: `translate3d(0rem, -2rem, 0rem)`,
     },
     enter: (button) => {
       return {
