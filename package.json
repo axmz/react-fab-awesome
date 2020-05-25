@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "http://axmz.github.io/react-fab-awesome",
+  "main": "./src/index.tsx",
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^2.2.0",
+    "yargs-parser": "^18.1.3"
   },
   "dependencies": {
     "@types/node": "^12.12.24",
@@ -14,7 +16,7 @@
     "node-sass": "^4.14.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0",
+    "react-scripts": "^3.4.1",
     "react-spring": "^9.0.0-beta.34",
     "styled-components": "^5.0.0",
     "typescript": "^3.7.4"

@@ -17,7 +17,7 @@ import Emoji from "./components/FAB/Emoji/Emoji";
 import { ReactComponent as Arrow } from "./assets/arrow.svg";
 import { ReactComponent as Plus } from "./assets/plus.svg";
 //
-import { Clickable } from "./components/FAB/Container/Button";
+import { Clickable } from "./components/FAB/Container/Clickable";
 
 // medium buttons
 const Pretzel = () => <Emoji label={"fruit"} symbol={"🥨"}></Emoji>

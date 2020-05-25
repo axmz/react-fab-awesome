@@ -3,7 +3,7 @@ import Container from "./Container/Container";
 import Emoji from "./Emoji/Emoji";
 import { ReactComponent as Arrow } from "../../assets/arrow.svg";
 import { ReactComponent as Plus } from "../../assets/plus.svg";
-import { Clickable } from "./Container/Button";
+import { Clickable } from "./Container/Clickable";
 
 
 interface Props {

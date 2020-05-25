@@ -10,7 +10,7 @@ import MediumButton from "../MediumButton/MediumButton";
 import LargeButton from "../LargeButton/LargeButton";
 // Spring
 import { useChain, SpringHandle, useSpring, to, useTransition } from "react-spring";
-import { Clickable } from "./Button";
+import { Clickable } from "./Clickable";
 
 const C = styled.div<any>`
   position: absolute;
@@ -62,7 +62,7 @@ const Container: React.FC<Props> = ({
   const mbl = mbh + m // medium button lift
 
   //                                       Transition
-  const transitions = useTransition(open ? mediumButtons : [], (button: any) => button.id, {
+  const transitions = useTransition(open ? mediumButtons : [], (button: Clickable) => button.id, {
     ref: transitionRef,
     trail: 50,
     config: { mass: 1, tension: 320, friction: 19 },
@@ -71,14 +71,14 @@ const Container: React.FC<Props> = ({
       opacity: 0,
       transform: `translate3d(0rem, -2rem, 0rem)`,
     },
-    enter: (button) => {
+    enter: (button: any) => {
       return {
         opacity: 1,
         transform: `translate3d(0rem, 0rem, 0rem)`,
         top: `${-mbl * (1 + button.id)}rem`, // +1 shift all medium buttons down. this depends on the padding of the circle.
       };
     },
-    leave: (button) => {
+    leave: (button: any) => {
       let mod = button.id % 2;
       let nr = -1;
       if (mod) {
@@ -123,7 +123,7 @@ const Container: React.FC<Props> = ({
 
   //                                       Style
   const smallButtonStyle = {
-    transform: to([y, rot], (y, rot) => `translateY(${y}rem) rotateX(${rot}deg)`),
+    transform: to([y, rot], (y: any, rot: any) => `translateY(${y}rem) rotateX(${rot}deg)`),
   };
 
 

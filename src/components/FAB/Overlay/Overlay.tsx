@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { animated } from "react-spring";
-import { Clickable } from "../Container/Button"
+import { Clickable } from "../Container/Clickable"
 
 const O = styled(animated.div)`
   position: absolute;

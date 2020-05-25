@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Clickable } from "../Container/Button";
+import { Clickable } from "../Container/Clickable";
 
 interface Props {
   buttonProps: Clickable;

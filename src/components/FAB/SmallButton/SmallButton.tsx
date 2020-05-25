@@ -1,7 +1,7 @@
 import React  from "react";
 import { animated } from "react-spring";
 import styled from "styled-components";
-import { Clickable } from "../Container/Button";
+import { Clickable } from "../Container/Clickable";
 
 const SB = styled(animated.div)`
   ${({ theme }) => theme.circleMixin("1rem", "#589d62")};
