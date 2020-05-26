@@ -11,8 +11,8 @@ import Switch from "./components/Switch/SwitchContainer";
 import { Context } from "./context/Context";
 
 // SVG / PNG / Emoji
-import doge from './assets/doge.png'
-import thinking from './assets/thinking.png'
+//import doge from './assets/doge.png'
+//import thinking from './assets/thinking.png'
 import Emoji from "./components/FAB/Emoji/Emoji";
 import { ReactComponent as Arrow } from "./assets/arrow.svg";
 import { ReactComponent as Plus } from "./assets/plus.svg";

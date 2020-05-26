@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "http://axmz.github.io/react-fab-awesome",
-  "main": "./src/index.tsx",
   "devDependencies": {
     "gh-pages": "^2.2.0",
     "yargs-parser": "^18.1.3"
