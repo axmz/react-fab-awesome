@@ -1,5 +1,6 @@
 # What
-Floating action button for [thumb-only](https://codesandbox.io/s/github/axmz/react-fab-awesome) navigation
+Floating action button for thumb-only navigation
+<!-- Floating action button for [thumb-only](https://codesandbox.io/s/github/axmz/react-fab-awesome) navigation -->
 
 # Why
 Because other fabs are not so cool
