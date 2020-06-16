@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4023e5177c1eb924e3b67d1f84906664",
+    "revision": "fdf3405fe087542f6e1f6279154d6711",
     "url": "/react-fab-awesome/index.html"
   },
   {
-    "revision": "641cdd34f0f753f15906",
+    "revision": "f4b2c14af9c85d935e13",
     "url": "/react-fab-awesome/static/css/main.13676f50.chunk.css"
   },
   {
-    "revision": "c0dc38a718275d13d897",
-    "url": "/react-fab-awesome/static/js/2.3284ce1a.chunk.js"
+    "revision": "492773bee7450f5d84a2",
+    "url": "/react-fab-awesome/static/js/2.8ae0412d.chunk.js"
   },
   {
     "revision": "928d7b5eb39d16fe9a880722c974b51e",
-    "url": "/react-fab-awesome/static/js/2.3284ce1a.chunk.js.LICENSE.txt"
+    "url": "/react-fab-awesome/static/js/2.8ae0412d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "641cdd34f0f753f15906",
-    "url": "/react-fab-awesome/static/js/main.f80afc7a.chunk.js"
+    "revision": "f4b2c14af9c85d935e13",
+    "url": "/react-fab-awesome/static/js/main.e65fb2b3.chunk.js"
   },
   {
     "revision": "a8a21ce4a7452ed003e5",
